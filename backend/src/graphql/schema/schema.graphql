@@ -1,0 +1,79 @@
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+  teacher: Teacher
+  pupil: Pupil
+  admin: Admin
+}
+
+enum Role {
+  TEACHER
+  PUPIL
+  ADMIN
+}
+
+type Teacher {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  subjects: [Subject!]!
+  user: User!
+}
+
+type Pupil {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  grades: JSON!
+  preferences: String
+  assignedSubject: String
+  user: User!
+}
+
+type Subject {
+  id: ID!
+  name: String!
+  teachers: [Teacher!]!
+}
+
+type Admin {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  user: User!
+}
+
+scalar JSON
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+  teachers: [Teacher!]!
+  teacher(id: ID!): Teacher
+  pupils: [Pupil!]!
+  pupil(id: ID!): Pupil
+  subjects: [Subject!]!
+  subject(id: ID!): Subject
+  admins: [Admin!]!
+  admin(id: ID!): Admin
+}
+
+type Mutation {
+  createUser(email: String!, password: String!, role: Role!, firstName: String, lastName: String, grades: JSON, preferences: String, assignedSubject: String, subjectIds: [ID!]): User!
+  updateUser(id: ID!, email: String, password: String, role: Role): User!
+  deleteUser(id: ID!): User!
+  createTeacher(firstName: String!, lastName: String!, userId: ID!, subjectIds: [ID!]!): Teacher!
+  updateTeacher(id: ID!, firstName: String, lastName: String, subjectIds: [ID!]!): Teacher!
+  deleteTeacher(id: ID!): Teacher!
+  createPupil(firstName: String!, lastName: String!, grades: JSON!, preferences: String, assignedSubject: String, userId: ID!): Pupil!
+  updatePupil(id: ID!, firstName: String, lastName: String, grades: JSON, preferences: String, assignedSubject: String): Pupil!
+  deletePupil(id: ID!): Pupil!
+  createSubject(name: String!): Subject!
+  updateSubject(id: ID!, name: String): Subject!
+  deleteSubject(id: ID!): Subject!
+  createAdmin(firstName: String!, lastName: String!, userId: ID!): Admin!
+  updateAdmin(id: ID!, firstName: String, lastName: String): Admin!
+  deleteAdmin(id: ID!): Admin!
+}

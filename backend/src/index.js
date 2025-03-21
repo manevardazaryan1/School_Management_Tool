@@ -1,29 +1,32 @@
+// src/index.js
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const { schema } = require('./graphql/schema');
-const { resolvers } = require('./graphql/resolvers');
 const { PrismaClient } = require('@prisma/client');
-const dotenv = require('dotenv');
+const fs = require('fs');
+const path = require('path');
+const resolvers = require('./graphql/resolvers');
 
-dotenv.config();
-
-const app = express();
 const prisma = new PrismaClient();
 
-const server = new ApolloServer({
-  typeDefs: schema,
-  resolvers,
-  context: ({ req }) => ({ req, prisma }),
-});
+async function startApolloServer() {
+  const typeDefs = fs.readFileSync(
+    path.join(__dirname, 'graphql/schema/schema.graphql'),
+    'utf-8'
+  );
 
-async function startServer() {
-  await server.start();
-  await server.applyMiddleware({ app }); // Apply middleware, no destructuring
-
-  const PORT = process.env.PORT || 4000;
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}/graphql`); // Hardcode /graphql
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: { prisma },
   });
+
+  const app = express();
+  await server.start();
+  server.applyMiddleware({ app });
+
+  app.listen({ port: 4000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  );
 }
 
-startServer();
+startApolloServer();
