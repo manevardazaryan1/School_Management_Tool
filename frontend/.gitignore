@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Production build
+build/
+dist/
+
+# Local environment variables
+.env.local
+
+# Optional: Dependency lock files
+package-lock.json
+yarn.lock
+
+# Testing
+coverage/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp # Vim swap files
+*.swo # Vim swap files
+
+# System files
+.DS_Store # macOS
+Thumbs.db # Windows
+desktop.ini # Windows
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
