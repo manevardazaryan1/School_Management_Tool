@@ -17,6 +17,7 @@ const initialState = {
 };
 
 let nextUserId = 4; // Initialize a unique ID for new users
+let userExists = false
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -54,11 +55,12 @@ export const authSlice = createSlice({
       }
     },
     register: (state, action) => {
-      const { email, password, role, dispatch } = action.payload;
+      const { email, password, role, } = action.payload;
 
       const existingUser = state.users.find((user) => user.email === email);
       if (existingUser) {
         state.registerError = 'Email already in use.';
+        userExists = true
         return;
       }
       const newUser = {
@@ -73,14 +75,6 @@ export const authSlice = createSlice({
       state.registerError = null;
       localStorage.setItem('currentUser', JSON.stringify(newUser)); //save to localstorage
 
-      // Dispatch role-specific actions
-      if (role.toUpperCase() === 'TEACHER') {
-        dispatch(addTeacher(newUser));
-      } else if (role.toUpperCase() === 'PUPIL') {
-        dispatch(addPupil(newUser));
-      } else if (role.toUpperCase() === 'ADMIN') {
-        dispatch(addAdmin(newUser));
-      }
     },
     clearRegisterError: (state) => {
       state.registerError = null;
@@ -91,4 +85,19 @@ export const authSlice = createSlice({
 export const { login, logout, loadStoredUser, register, clearRegisterError } =
   authSlice.actions;
 
+
+export const registerAndDispatch = (userData) => (dispatch) => {
+    dispatch(authSlice.actions.register(userData));
+  
+    if (userExists) return
+    
+    if (userData.role.toUpperCase() === 'TEACHER') {
+      dispatch(addTeacher(userData));
+    } else if (userData.role.toUpperCase() === 'PUPIL') {
+      dispatch(addPupil(userData));
+    } else if (userData.role.toUpperCase() === 'ADMIN') {
+      dispatch(addAdmin(userData));
+    }
+};
+  
 export default authSlice.reducer;

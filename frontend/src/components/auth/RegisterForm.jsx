@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel, Box } from '@mui/material';
 import { validationSchema } from '../../schema/registerFormValidationSchema.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../../redux/slices/authSlice';
+import { registerAndDispatch } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -22,7 +22,7 @@ function RegistrationForm() {
   }, [currentUser, navigate]);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(register({...values, dispatch}));
+    dispatch(registerAndDispatch(values)); // Dispatch thunk
     setSubmitting(false);
   };
 

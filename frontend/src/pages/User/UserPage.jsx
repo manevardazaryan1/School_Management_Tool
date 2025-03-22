@@ -1,9 +1,9 @@
 // src/components/UserPage.js
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import AdminDashboard from '../../components/AdminDashboard';
-import TeacherDashboard from '../../components/TeacherDashboard';
-import PupilDashboard from '../../components/PupilDashboard';
+import AdminDashboard from '../../components/Dashboards/AdminDashboard';
+import TeacherDashboard from '../../components/Dashboards/TeacherDashboard';
+import PupilDashboard from '../../components/Dashboards/PupilDashboard';
 import { useNavigate } from 'react-router-dom';
 
 function UserPage() {

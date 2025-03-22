@@ -1,0 +1,85 @@
+// src/components/pupil/UpdatePupilModal.js
+
+import React from 'react';
+import {
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Grid,
+    TextField,
+    Button,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+} from '@mui/material';
+
+function UpdatePupilModal({
+    open,
+    onClose,
+    selectedPupil,
+    updatedName,
+    setUpdatedName,
+    updatedGrades,
+    setUpdatedGrades,
+    updatedPreference,
+    setUpdatedPreference,
+    subjects,
+    handleUpdatePupil,
+    handleGradeChange,
+}) {
+    return (
+        <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+            <DialogTitle>Update Pupil</DialogTitle>
+            <DialogContent>
+                {selectedPupil && (
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                label="Name"
+                                value={updatedName}
+                                onChange={(e) => setUpdatedName(e.target.value)}
+                                fullWidth
+                            />
+                        </Grid>
+                        {Object.entries(selectedPupil.grades).map(([subjectName, grade]) => (
+                            <Grid item xs={12} sm={6} key={subjectName}>
+                                <TextField
+                                    label={`${subjectName} Grade`}
+                                    type="number"
+                                    inputProps={{ min: 0, max: 100 }}
+                                    value={updatedGrades[subjectName] || ''}
+                                    onChange={(e) => handleGradeChange(subjectName, e.target.value)}
+                                    fullWidth
+                                />
+                            </Grid>
+                        ))}
+                        <Grid item xs={12}>
+                            <FormControl fullWidth>
+                                <InputLabel id="preference-select-label">Preference</InputLabel>
+                                <Select
+                                    labelId="preference-select-label"
+                                    id="preference-select"
+                                    value={updatedPreference}
+                                    label="Preference"
+                                    onChange={(e) => setUpdatedPreference(e.target.value)}
+                                >
+                                    {subjects.map((subject) => (
+                                        <MenuItem key={subject.id} value={subject.name}>{subject.name}</MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                )}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose} color="primary">Cancel</Button>
+                <Button onClick={handleUpdatePupil} color="primary">Update</Button>
+            </DialogActions>
+        </Dialog>
+    );
+}
+
+export default UpdatePupilModal;
