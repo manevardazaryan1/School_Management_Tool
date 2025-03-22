@@ -5,8 +5,8 @@ let nextTeacherId = 1;
 
 const initialState = {
     teachers: [
-        { id: nextTeacherId++, name: 'Mr. Smith', subjectIds: [1, 2] }, // Math and Science
-        { id: nextTeacherId++, name: 'Ms. Johnson', subjectIds: [3] }, // History
+        { id: nextTeacherId++, userId: 2, name: 'Mr. Smith', subjectIds: [1, 2] }, // Math and Science
+        { id: nextTeacherId++, userId: null, name: 'Ms. Johnson', subjectIds: [3] }, // History
     ],
 };
 
@@ -15,8 +15,8 @@ export const teachersSlice = createSlice({
     initialState,
     reducers: {
         addTeacher: (state, action) => {
-            const { name, subjectIds } = action.payload;
-            const newTeacher = { id: nextTeacherId++, name, subjectIds: subjectIds || [] };
+            const { name, userId } = action.payload;
+            const newTeacher = { id: nextTeacherId++, subjectIds: [], name, userId };
             state.teachers.push(newTeacher);
             return state;
         },

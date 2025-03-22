@@ -7,9 +7,9 @@ import { addAdmin } from './adminsSlice';
 
 const initialState = {
   users: [
-    { id: 1, email: 'user1@example.com', password: 'password1', role: 'admin' },
-    { id: 2, email: 'user2@example.com', password: 'password2', role: 'teacher' },
-    { id: 3, email: 'user3@example.com', password: 'password3', role: 'pupil' },
+    { id: 1, name: "user1", email: 'user1@example.com', password: 'password1', role: 'admin' },
+    { id: 2, name: "user2", email: 'user2@example.com', password: 'password2', role: 'teacher' },
+    { id: 3, name: "user3", email: 'user3@example.com', password: 'password3', role: 'pupil' },
   ],
   currentUser: null,
   loginError: null,
@@ -55,7 +55,7 @@ export const authSlice = createSlice({
       }
     },
     register: (state, action) => {
-      const { email, password, role, } = action.payload;
+      const { name, email, password, role, } = action.payload;
 
       const existingUser = state.users.find((user) => user.email === email);
       if (existingUser) {
@@ -65,6 +65,7 @@ export const authSlice = createSlice({
       }
       const newUser = {
         id: nextUserId++,
+        name,
         email,
         password,
         role,
@@ -92,11 +93,11 @@ export const registerAndDispatch = (userData) => (dispatch) => {
     if (userExists) return
     
     if (userData.role.toUpperCase() === 'TEACHER') {
-      dispatch(addTeacher(userData));
+      dispatch(addTeacher({...userData, userId: nextUserId}));
     } else if (userData.role.toUpperCase() === 'PUPIL') {
-      dispatch(addPupil(userData));
+      dispatch(addPupil({...userData, userId: nextUserId}));
     } else if (userData.role.toUpperCase() === 'ADMIN') {
-      dispatch(addAdmin(userData));
+      dispatch(addAdmin({...userData, userId: nextUserId}));
     }
 };
   

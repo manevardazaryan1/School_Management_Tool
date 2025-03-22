@@ -30,12 +30,15 @@ function RegistrationForm() {
     <div>
       {registerError && <p style={{ color: 'red' }}>{registerError}</p>}
       <Formik
-        initialValues={{ email: '', password: '', role: 'PUPIL' }}
+        initialValues={{ name:'', email: '', password: '', role: 'PUPIL' }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form>
+            <Field as={TextField} name="name" label="Name" margin="normal" fullWidth />
+            <ErrorMessage name="name" component="div" style={{ color: 'red' }} />
+
             <Field as={TextField} name="email" label="Email" margin="normal" fullWidth />
             <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
 

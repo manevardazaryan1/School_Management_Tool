@@ -8,6 +8,7 @@ const initialState = {
   pupils: [
     {
       id: nanoid(),
+      userId: 3,
       name: 'Alice Johnson',
       grades: {
         Mathematics: 85,
@@ -25,8 +26,8 @@ export const pupilsSlice = createSlice({
   initialState,
   reducers: {
     addPupil: (state, action) => {
-      const { name, grades = null, preference = null, subjects = null } = action.payload;
-      state.pupils.push({ id: nextPupilId++, name, grades, preference, advancedSubject: calculateAdvancedSubject(grades, preference, subjects) });
+      const { name, userId } = action.payload;
+      state.pupils.push({ id: nextPupilId++, name, userId, grades: {}, preference: "", advancedSubject: "" });
     },
     deletePupil: (state, action) => {
       const { id } = action.payload;

@@ -10,12 +10,15 @@ import UserPage from './pages/User/UserPage';
 import TeachersPage from './pages/teacher/TeachersPage';
 import PupilsPage from './pages/pupil/PupilsPage';
 import SubjectsPage from './pages/subject/SubjectsPage';
+import AdminRoute from './middlewares/AdminRoute';
+import UnauthorizedPage from './pages/UnauthorizedPage/UnauthorizedPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadStoredUser()); // Check localStorage on app load
+    dispatch(loadStoredUser()); 
   }, [dispatch]);
   return (
     <div>
@@ -26,9 +29,11 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/register" element={<RegisterPage/>} />
         <Route path="/user" element={<UserPage/>} />
-        <Route path="/teachers" element={<TeachersPage/>} />
-        <Route path="/pupils" element={<PupilsPage/>} />
-        <Route path="/subjects" element={<SubjectsPage/>} />
+        <Route path="/pupils" element={<AdminRoute><PupilsPage /></AdminRoute>} />
+        <Route path="/teachers" element={<AdminRoute><TeachersPage /></AdminRoute>} />
+        <Route path="/subjects" element={<AdminRoute><SubjectsPage /></AdminRoute>} />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
     </div>
