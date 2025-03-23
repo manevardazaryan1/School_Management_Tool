@@ -1,0 +1,32 @@
+.dashboard-column-box-content {
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pupil-box,
+.sunject-box,
+.teacher-box {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.teacher-box {
+    background-image: linear-gradient(to bottom, rgba(85, 30, 48, 0.7), rgba(210, 98, 86, 0.5), rgba(145, 71, 98, 0.3)), url("../../assets/images/adminDashboardCards/teacherCardImage.webp");
+}
+
+.subject-box {
+    background-size: cover;
+    background-image: linear-gradient(to bottom, rgba(85, 30, 48, 0.7), rgba(210, 98, 86, 0.5), rgba(145, 71, 98, 0.3)), url("../../assets/images/adminDashboardCards/subjectCardImage.webp");
+}
+
+.pupil-box {
+    background-image: linear-gradient(to bottom, rgba(85, 30, 48, 0.7), rgba(210, 98, 86, 0.5), rgba(145, 71, 98, 0.3)), url("../../assets/images/adminDashboardCards/pupilCardImage.webp");
+}
+
+.card-title {
+    color: #fff;
+}

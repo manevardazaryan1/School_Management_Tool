@@ -7,14 +7,18 @@ import { ApolloProvider } from '@apollo/client';
 import client from './apollo';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { ThemeProvider} from '@mui/material';
+import { theme } from './schema/theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-    <Provider store={store}>
-      <App />
-    </Provider> 
+      <Provider store={store}>
+      <ThemeProvider theme={theme}> 
+          <App />
+        </ThemeProvider>
+      </Provider> 
     </ApolloProvider>
   </React.StrictMode>
 );

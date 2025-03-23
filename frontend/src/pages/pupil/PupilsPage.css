@@ -1,0 +1,65 @@
+.pupils-page-container {
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 85px;
+    width: 100%;
+    max-width: 100% !important;
+    background-image: linear-gradient(to bottom, 
+    black 64px, /* Black top 64px */
+    #333333 64px); /* Remainder is your color */ 
+}
+
+.page-title {
+    padding-left: 20px;
+    color: #cd736d;
+}
+
+.list-item {
+    display: flex;
+    align-items: flex-end !important;
+    justify-content: space-between !important;
+}
+
+.items-list {
+    padding: 20px !important;
+}
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin: auto;
+}
+
+.filter-form div {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.filter-form input {
+    color: #fff;
+}
+
+@media only screen and (max-width: 1200px) {
+    .list-item {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+
+    .list-item .buttons {
+        align-self: flex-end;
+    }
+
+    .filter-form {
+        width: 90%;
+    }
+}

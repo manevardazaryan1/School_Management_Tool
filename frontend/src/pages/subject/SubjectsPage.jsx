@@ -1,16 +1,14 @@
 // src/components/SubjectsPage.js
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux"
 import { addSubject, updateSubject, deleteSubject } from '../../redux/slices/subjectsSlice';
-import {
-    List,
-    ListItem,
-    ListItemText,
-    TextField,
-    Button,
-} from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import UpdateSubjectDialog from '../../components/subject/UpdateSubjectDialog';
 import DeleteConfirmationDialog from '../../components/subject/DeleteConfirmationDialog';
+import SubjectList from '../../components/subject/SubjectList';
+import SubjectFilters from '../../components/subject/SubjectFilters';
+import SubjectPagination from '../../components/subject/SubjectPagination';
+import "./SubjectsPage.css"
 
 function SubjectsPage() {
     const subjects = useSelector((state) => state.subjects.subjects);
@@ -21,6 +19,20 @@ function SubjectsPage() {
     const [subjectToUpdate, setSubjectToUpdate] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [subjectToDelete, setSubjectToDelete] = useState(null);
+    const [filterName, setFilterName] = useState('');
+    const [page, setPage] = useState(1);
+    const subjectsPerPage = 1;
+
+    const filteredSubjects = subjects.filter(subject =>
+        subject.name.toLowerCase().includes(filterName.toLowerCase())
+    );
+
+    const totalPages = Math.ceil(filteredSubjects.length / subjectsPerPage);
+    const paginatedSubjects = filteredSubjects.slice((page - 1) * subjectsPerPage, page * subjectsPerPage);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
 
     const handleAddSubject = () => {
         if (newSubjectName.trim()) {
@@ -52,31 +64,24 @@ function SubjectsPage() {
     };
 
     return (
-        <div>
-            <h2>Subjects</h2>
-            <TextField label="New Subject" value={newSubjectName} onChange={(e) => setNewSubjectName(e.target.value)} />
-            <Button onClick={handleAddSubject} variant="contained" color="primary">Add Subject</Button>
-            <List>
-                {subjects.map((subject) => (
-                    <ListItem key={subject.id} secondaryAction={
-                        <div>
-                            <Button onClick={() => handleOpenUpdateDialog(subject)} size="small">Update</Button>
-                            <Button onClick={() => handleOpenDeleteConfirm(subject)} size="small" color="secondary">Delete</Button>
-                        </div>
-                    }>
-                        <ListItemText primary={
-                            `${subject.name} (Teacher: ${
-                                subject.teacherIds && subject.teacherIds.length > 0
-                                    ? subject.teacherIds
-                                        .map(teacherId => teachers.find(teacher => teacher.id === teacherId)?.name)
-                                        .filter(Boolean)
-                                        .join(', ')
-                                    : 'No Teacher'
-                            })`
-                        } />
-                    </ListItem>
-                ))}
-            </List>
+        <Box className="subjects-page-container">
+            <Typography variant="h2" component="h2" className="page-title">Subjects</Typography>
+            <Box className="add-subject-form">
+                <TextField label="New Subject" value={newSubjectName} onChange={(e) => setNewSubjectName(e.target.value)} className="add-subject-input" />
+                <Button onClick={handleAddSubject} variant="contained" color="primary" className="add-subject-button">Add Subject</Button>
+            </Box>
+            <SubjectFilters filterName={filterName} setFilterName={setFilterName} />
+            <SubjectList
+                paginatedSubjects={paginatedSubjects}
+                teachers={teachers}
+                handleOpenUpdateDialog={handleOpenUpdateDialog}
+                handleOpenDeleteConfirm={handleOpenDeleteConfirm}
+            />
+            <SubjectPagination
+                totalPages={totalPages}
+                page={page}
+                handlePageChange={handlePageChange}
+            />
             <UpdateSubjectDialog
                 open={updateDialogOpen}
                 onClose={() => setUpdateDialogOpen(false)}
@@ -90,7 +95,7 @@ function SubjectsPage() {
                 itemName="subject"
                 onConfirm={handleDeleteSubjectConfirm}
             />
-        </div>
+        </Box>
     );
 }
 

@@ -17,10 +17,10 @@ function ConfirmDeletePupil({ open, onClose, onConfirm, pupilName }) {
                 {`Are you sure you want to delete ${pupilName}?`}
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose} color="primary">
+                <Button onClick={onClose} color="text" style={{color: "#000"}}>
                     Cancel
                 </Button>
-                <Button onClick={onConfirm} color="secondary">
+                <Button onClick={onConfirm} variant="contained" color="secondary">
                     Delete
                 </Button>
             </DialogActions>

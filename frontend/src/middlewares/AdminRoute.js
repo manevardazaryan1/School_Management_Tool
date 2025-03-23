@@ -5,7 +5,7 @@ function AdminRoute({ children }) {
     const userRole = useSelector((state) => state.auth.currentUser?.role); // Adjust to your auth state
     const location = useLocation();
 
-    if (userRole !== 'admin') {
+    if (userRole !== 'ADMIN') {
         // Redirect to a specific page or show an error message
         return <Navigate to="/unauthorized" state={{ from: location }} replace />;
     }

@@ -1,4 +1,6 @@
 import { useSelector } from 'react-redux';
+import { Typography, Box } from '@mui/material';
+import  "./Dashboards.css"
 
 export default function TeacherDashboard() {
     const currentUserId = useSelector((state) => state.auth.currentUser.id); // Adjust to your auth state
@@ -6,13 +8,12 @@ export default function TeacherDashboard() {
     const subjects = useSelector((state) => state.subjects.subjects); // Assuming you have subjects in Redux
 
     const teacher = teachers.find((t) => t.userId === currentUserId);
-
     if (!currentUserId) {
         return <p>Please log in.</p>;
     }
 
     if (!teacher) {
-        return <p>Teacher information not found.</p>;
+        return <Typography variant="h3" component="h3" style={{textAlign: "center"}}>Teacher information not found.</Typography>
     }
 
     // Function to get subject names
@@ -27,11 +28,16 @@ export default function TeacherDashboard() {
     };
 
     return (
-        <div>
-            <h2>Teacher Information</h2>
-            <p><strong>Name:</strong> {teacher.name}</p>
-            <p><strong>Subjects:</strong> {getSubjectNames(teacher.subjectIds)}</p>
-            {/* Add more teacher information as needed */}
-        </div>
+        <Box className="teacher-dashboard-card">
+            <Typography variant="h4" component="h4" gutterBottom className="dashboardTitleInfo">
+                Teacher Information
+            </Typography>
+            <Typography variant="h5" component="h3" gutterBottom className="dashboardTitleName">
+                {`Name: ${teacher.name.toUpperCase()}`}
+            </Typography>
+            <Typography variant="body1" paragraph className="dashboardParagraph">
+                {`Subjects: ${getSubjectNames(teacher.subjectIds)}`}
+            </Typography>
+        </Box>
     );
 }

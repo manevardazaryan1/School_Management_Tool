@@ -1,6 +1,7 @@
 // src/components/UpdateTeacherDialog.js
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, FormControlLabel, Checkbox } from '@mui/material';
+import "./UpdateDeleteTeacher.css"
 
 function UpdateTeacherDialog({ open, onClose, teacher, subjects, onUpdate, onSubjectChange }) {
     const [teacherName, setTeacherName] = useState(teacher ? teacher.name : '');
@@ -30,11 +31,12 @@ function UpdateTeacherDialog({ open, onClose, teacher, subjects, onUpdate, onSub
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Update Teacher</DialogTitle>
-            <DialogContent>
+            <DialogContent className="update-teacher-form">
                 <TextField
                     label="Teacher Name"
                     value={teacherName}
                     onChange={(e) => setTeacherName(e.target.value)}
+                    className="teacher-name-input"
                 />
                 <FormControl component="fieldset">
                     {subjects.map((subject) => (

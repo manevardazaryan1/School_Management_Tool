@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import "./AuthForm.css"
 
 function LoginForm() {
   const dispatch = useDispatch();

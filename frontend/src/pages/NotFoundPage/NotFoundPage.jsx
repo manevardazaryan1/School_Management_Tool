@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, Container, Paper, Box } from '@mui/material';
+import "./NotFoundPage.css"
 
 function NotFoundPage() {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ function NotFoundPage() {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" className="not-found-page-container ">
             <Box
                 display="flex"
                 justifyContent="center"

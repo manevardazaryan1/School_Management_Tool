@@ -1,0 +1,35 @@
+.user-container {
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url("../../assets/images/userPage/userPageImage.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px 0 20px;
+}
+
+.user-dashboard-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.dashboard-row,
+.dashboard {
+    width: 100%;
+}
+
+.user-page-title {
+    color: #fff;
+    margin-top: 73px !important;
+}

@@ -41,6 +41,7 @@ function UpdatePupilModal({
                                 value={updatedName}
                                 onChange={(e) => setUpdatedName(e.target.value)}
                                 fullWidth
+                                style={{marginTop: "10px"}}
                             />
                         </Grid>
                         {Object.entries(selectedPupil.grades).map(([subjectName, grade]) => (
@@ -75,8 +76,8 @@ function UpdatePupilModal({
                 )}
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose} color="primary">Cancel</Button>
-                <Button onClick={handleUpdatePupil} color="primary">Update</Button>
+                <Button onClick={onClose} variant="text" style={{color: "#000"}} color="primary">Cancel</Button>
+                <Button onClick={handleUpdatePupil} variant="contained" color="primary">Update</Button>
             </DialogActions>
         </Dialog>
     );

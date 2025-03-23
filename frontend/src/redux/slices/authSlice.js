@@ -48,7 +48,6 @@ export const authSlice = createSlice({
         try {
           state.currentUser = JSON.parse(storedUser);
         } catch (error) {
-          console.error('Error parsing stored user:', error);
           localStorage.removeItem('currentUser'); // Clear invalid data
           state.currentUser = null;
         }
@@ -80,10 +79,28 @@ export const authSlice = createSlice({
     clearRegisterError: (state) => {
       state.registerError = null;
     },
+    updateUser: (state, action) => {
+      const { userId, name } = action.payload;
+      const userIndex = state.users.findIndex(user => user.id === userId);
+      if (userIndex !== -1) {
+        state.users[userIndex] = {
+          ...state.users[userIndex],
+          name,
+        };
+      }
+    },
+    deleteUser: (state, action) => {
+      const idToDelete = action.payload;
+      state.users = state.users.filter(user => user.id !== idToDelete);
+      if(state.currentUser && state.currentUser.id === idToDelete){
+        localStorage.removeItem('currentUser');
+        state.currentUser = null;
+      }
+    },
   },
 });
 
-export const { login, logout, loadStoredUser, register, clearRegisterError } =
+export const { login, logout, loadStoredUser, register, clearRegisterError, updateUser, deleteUser } =
   authSlice.actions;
 
 
@@ -93,11 +110,11 @@ export const registerAndDispatch = (userData) => (dispatch) => {
     if (userExists) return
     
     if (userData.role.toUpperCase() === 'TEACHER') {
-      dispatch(addTeacher({...userData, userId: nextUserId}));
+      dispatch(addTeacher({...userData, userId: nextUserId - 1}));
     } else if (userData.role.toUpperCase() === 'PUPIL') {
-      dispatch(addPupil({...userData, userId: nextUserId}));
+      dispatch(addPupil({...userData, userId: nextUserId - 1}));
     } else if (userData.role.toUpperCase() === 'ADMIN') {
-      dispatch(addAdmin({...userData, userId: nextUserId}));
+      dispatch(addAdmin({...userData, userId: nextUserId - 1}));
     }
 };
   

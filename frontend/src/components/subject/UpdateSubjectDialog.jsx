@@ -25,6 +25,7 @@ function UpdateSubjectDialog({ open, onClose, subject, onUpdate }) {
                     label="Subject Name"
                     value={subjectName}
                     onChange={(e) => setSubjectName(e.target.value)}
+                    style={{marginTop: "10px"}}
                 />
             </DialogContent>
             <DialogActions>

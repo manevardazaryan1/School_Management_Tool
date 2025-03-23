@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+// src/components/pupil/PupilsPage.js
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { updatePupil, deletePupil } from '../../redux/slices/pupilsSlice';
-import {
-    List,
-    ListItem,
-    Button,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ConfirmDeletePupil from '../../components/pupil/DeleteConfirmationDialog';
 import UpdatePupilModal from '../../components/pupil/UpdatePupilDialog';
+import PupilList from '../../components/pupil/PupilList';
+import PupilFilters from '../../components/pupil/PupilFilters';
+import PupilPagination from '../../components/pupil/PupilPagination';
+import "./PupilsPage.css"
+import { updateUser, deleteUser } from '../../redux/slices/authSlice';
 
 function PupilsPage() {
     const pupils = useSelector((state) => state.pupils.pupils);
@@ -22,6 +24,35 @@ function PupilsPage() {
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
     const [pupilToDelete, setPupilToDelete] = useState(null);
 
+    const [filterName, setFilterName] = useState('');
+    const [filterAdvancedSubject, setFilterAdvancedSubject] = useState('');
+    const [filterGradeSubject, setFilterGradeSubject] = useState('');
+    const [filterGradeValue, setFilterGradeValue] = useState('');
+    const [filterPreference, setFilterPreference] = useState('');
+    const [page, setPage] = useState(1);
+    const pupilsPerPage = 5;
+
+    const filteredPupils = pupils.filter(pupil => {
+        const nameMatch = pupil.name.toLowerCase().includes(filterName.toLowerCase());
+        const advancedSubjectMatch = filterAdvancedSubject
+            ? pupil.advancedSubject.toLowerCase().includes(filterAdvancedSubject.toLowerCase())
+            : true;
+        const preferenceMatch = filterPreference
+            ? pupil.preference.toLowerCase().includes(filterPreference.toLowerCase())
+            : true;
+        const gradeMatch = filterGradeSubject && filterGradeValue
+            ? pupil.grades[subjects.find(s => s.id === parseInt(filterGradeSubject))?.name] === parseInt(filterGradeValue)
+            : true;
+        return nameMatch && advancedSubjectMatch && preferenceMatch && gradeMatch;
+    });
+
+    const totalPages = Math.ceil(filteredPupils.length / pupilsPerPage);
+    const paginatedPupils = filteredPupils.slice((page - 1) * pupilsPerPage, page * pupilsPerPage);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
     const handleDeletePupil = (id) => {
         setPupilToDelete(id);
         setDeleteConfirmationOpen(true);
@@ -29,6 +60,7 @@ function PupilsPage() {
 
     const confirmDelete = () => {
         dispatch(deletePupil({ id: pupilToDelete }));
+        dispatch(deleteUser(pupils.find(pupil => pupil.id === pupilToDelete).userId))
         setDeleteConfirmationOpen(false);
         setPupilToDelete(null);
     };
@@ -59,6 +91,7 @@ function PupilsPage() {
             preference: updatedPreference,
             subjectsList: subjects
         }));
+        dispatch(updateUser({ userId: selectedPupil.userId, name: updatedName }))
         handleCloseModal();
     };
 
@@ -68,48 +101,21 @@ function PupilsPage() {
     };
 
     return (
-        <div>
-            <h2>Pupils</h2>
-            <List>
-                {pupils.map((pupil) => (
-                    <ListItem key={pupil.id} secondaryAction={
-                        <div>
-                            <Button onClick={() => handleOpenModal(pupil)} size="small" color="primary">Edit</Button>
-                            <Button onClick={() => handleDeletePupil(pupil.id)} size="small" color="secondary">Delete</Button>
-                        </div>
-                    }>
-                        {pupil.name} - {pupil.advancedSubject} - {
-                            subjects.map((subject) => {
-                                return `${subject.name} - ${pupil.grades[subject.name] || 0}`
-                            })
-                        }
-                        {pupil.preference}
-                    </ListItem>
-                ))}
-            </List>
-
-            <UpdatePupilModal
-                open={openModal}
-                onClose={handleCloseModal}
-                selectedPupil={selectedPupil}
-                updatedName={updatedName}
-                setUpdatedName={setUpdatedName}
-                updatedGrades={updatedGrades}
-                setUpdatedGrades={setUpdatedGrades}
-                updatedPreference={updatedPreference}
-                setUpdatedPreference={setUpdatedPreference}
+        <Box className="pupils-page-container">
+            <Typography variant="h2" component="h2" className="page-title">Pupils</Typography>
+            <PupilFilters
+                filterName={filterName} setFilterName={setFilterName}
+                filterAdvancedSubject={filterAdvancedSubject} setFilterAdvancedSubject={setFilterAdvancedSubject}
+                filterPreference={filterPreference} setFilterPreference={setFilterPreference}
+                filterGradeSubject={filterGradeSubject} setFilterGradeSubject={setFilterGradeSubject}
+                filterGradeValue={filterGradeValue} setFilterGradeValue={setFilterGradeValue}
                 subjects={subjects}
-                handleUpdatePupil={handleUpdatePupil}
-                handleGradeChange={handleGradeChange}
             />
-
-            <ConfirmDeletePupil
-                open={deleteConfirmationOpen}
-                onClose={cancelDelete}
-                onConfirm={confirmDelete}
-                pupilName={pupils.find((pupil) => pupil.id === pupilToDelete)?.name || ''}
-            />
-        </div>
+            <PupilList paginatedPupils={paginatedPupils} handleOpenModal={handleOpenModal} handleDeletePupil={handleDeletePupil} subjects={subjects} />
+            <PupilPagination totalPages={totalPages} page={page} handlePageChange={handlePageChange} />
+            <UpdatePupilModal open={openModal} onClose={handleCloseModal} selectedPupil={selectedPupil} updatedName={updatedName} setUpdatedName={setUpdatedName} updatedGrades={updatedGrades} setUpdatedGrades={setUpdatedGrades} updatedPreference={updatedPreference} setUpdatedPreference={setUpdatedPreference} subjects={subjects} handleUpdatePupil={handleUpdatePupil} handleGradeChange={handleGradeChange} />
+            <ConfirmDeletePupil open={deleteConfirmationOpen} onClose={cancelDelete} onConfirm={confirmDelete} pupilName={pupils.find((pupil) => pupil.id === pupilToDelete)?.name || ''} />
+        </Box>
     );
 }
 

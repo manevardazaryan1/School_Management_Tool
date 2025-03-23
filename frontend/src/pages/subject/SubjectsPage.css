@@ -1,0 +1,72 @@
+.subjects-page-container {
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 85px;
+    width: 100%;
+    max-width: 100% !important;
+    background-image: linear-gradient(to bottom, 
+    black 64px, /* Black top 64px */
+    #333333 64px); /* Remainder is your color */ 
+}
+
+.page-title {
+    padding-left: 20px;
+    color: #cd736d;
+}
+
+.list-item {
+    border-radius: 10px;
+    background: #222;
+    box-shadow: 5px 4px 0px 0px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    color: #d5d5d5;
+}
+
+.items-list {
+    padding: 20px !important;
+}
+
+.add-subject-form {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.add-subject-form .add-subject-button {
+    margin-left: 20px;
+    width: 200px;
+}
+
+.add-subject-form .add-subject-input {
+    color: #fff;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .list-item .buttons {
+        align-self: flex-end;
+    }
+
+    .add-subject-form {
+        width: 90%;
+    }
+}
+
+
+@media only screen and (max-width: 450px) {
+    .add-subject-form { 
+        flex-direction: column;
+        padding: 0 20px !important;
+        width: 100%;
+    }
+
+    .add-subject-form .add-subject-button {
+        margin-top: 20px;
+        margin-left: 0;
+        width: 100%;
+    }
+}

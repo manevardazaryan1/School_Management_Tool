@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, Container, Paper, Box } from '@mui/material';
+import "./UnauthorizedPage.css"
 
 function UnauthorizedPage() {
     const navigate = useNavigate();
@@ -18,7 +19,7 @@ function UnauthorizedPage() {
     };
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" className="unauthorized-page-container">
             <Box
                 display="flex"
                 justifyContent="center"

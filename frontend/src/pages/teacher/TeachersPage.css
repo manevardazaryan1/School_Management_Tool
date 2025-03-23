@@ -1,0 +1,39 @@
+.teachers-page-container {
+    min-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 85px;
+    width: 100%;
+    max-width: 100% !important;
+    background-image: linear-gradient(to bottom, 
+    black 64px, /* Black top 64px */
+    #333333 64px); /* Remainder is your color */ 
+}
+
+.list-item {
+    border-radius: 10px;
+    background: #222;
+    box-shadow: 5px 4px 0px 0px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    color: #d5d5d5;
+}
+
+.items-list {
+    padding: 20px !important;
+}
+
+.subjects-list p {
+    color: #fff !important;
+}
+
+.page-title {
+    padding-left: 20px;
+    color: #cd736d;
+}
+
+@media only screen and (max-width: 1200px) {
+    .list-item .buttons {
+        align-self: flex-end;
+    }
+}

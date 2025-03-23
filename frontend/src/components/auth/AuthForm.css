@@ -1,0 +1,10 @@
+.auth-form {
+    width: 444px !important;
+}
+
+@media only screen and (max-width: 500px) {
+    .auth-form {
+        width: auto !important;
+        min-width: 300px;
+    }
+}

@@ -5,6 +5,8 @@ import AdminDashboard from '../../components/Dashboards/AdminDashboard';
 import TeacherDashboard from '../../components/Dashboards/TeacherDashboard';
 import PupilDashboard from '../../components/Dashboards/PupilDashboard';
 import { useNavigate } from 'react-router-dom';
+import { Box, Container, Typography } from '@mui/material';
+import "./UserPage.css"
 
 function UserPage() {
   const currentUser = useSelector((state) => state.auth.currentUser);
@@ -41,10 +43,16 @@ function UserPage() {
   }
 
   return (
-    <div>
-      <h2>User Page</h2>
-      {renderDashboard()}
-    </div>
+    <Container className="user-container">
+      <Box className="user-dashboard-box">
+        <Typography variant="h3" component="h2" gutterBottom className="user-page-title">
+          {currentUser.role} {currentUser.name.toUpperCase()}
+        </Typography>
+        <Box className="dashboard">
+          {renderDashboard()}
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

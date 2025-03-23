@@ -1,36 +1,34 @@
 // src/components/TeachersPage.js
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTeacher, updateTeacher, deleteTeacher } from '../../redux/slices/teachersSlice';
+import { updateTeacher, deleteTeacher } from '../../redux/slices/teachersSlice';
 import {
     removeTeacherFromSubjects,
     updateSubjectTeacherByTeacher,
-    updateSubjectTeacherByTeacherAdd,
     addTeacherToSubject,
     removeTeacherFromSubject,
 } from '../../redux/slices/subjectsSlice';
-import {
-    List,
-    ListItem,
-    ListItemText,
-    TextField,
-    Button,
-    FormControl,
-    FormControlLabel,
-    Checkbox,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import UpdateTeacherDialog from '../../components/teacher/UpdateTeacherDialog';
 import DeleteConfirmationDialog from '../../components/teacher/DeleteConfirmationDialog';
+import TeacherList from '../../components/teacher/TeacherList';
+import TeacherFilters from '../../components/teacher/TeacherFilters';
+import TeacherPagination from '../../components/teacher/TeacherPagination';
+import "./TeachersPage.css"
+import { updateUser, deleteUser } from '../../redux/slices/authSlice';
 
 function TeachersPage() {
     const teachers = useSelector((state) => state.teachers.teachers);
     const subjects = useSelector((state) => state.subjects.subjects);
     const dispatch = useDispatch();
-    const [newTeacherSubjects, setNewTeacherSubjects] = useState([]);
     const [updateDialogOpen, setUpdateDialogOpen] = useState(false);
     const [teacherToUpdate, setTeacherToUpdate] = useState(null);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
     const [teacherToDelete, setTeacherToDelete] = useState(null);
+    const [filterName, setFilterName] = useState('');
+    const [filterSubject, setFilterSubject] = useState('');
+    const [page, setPage] = useState(1);
+    const teachersPerPage = 1;
 
     const handleOpenUpdateDialog = (teacher) => {
         setTeacherToUpdate(teacher);
@@ -42,6 +40,7 @@ function TeachersPage() {
 
         dispatch(updateTeacher({ id: teacherToUpdate.id, name: updatedName, subjectIds: updatedSubjects }));
         dispatch(updateSubjectTeacherByTeacher({ teacherId: teacherToUpdate.id, subjectIds: updatedSubjects }));
+        dispatch(updateUser({ userId: teacherToUpdate.userId, name: updatedName}))
 
         removedSubjects.forEach((subjectId) => {
             dispatch(removeTeacherFromSubject({ subjectId, teacherId: teacherToUpdate.id }));
@@ -61,16 +60,9 @@ function TeachersPage() {
     const handleDeleteTeacherConfirm = () => {
         dispatch(removeTeacherFromSubjects({ teacherId: teacherToDelete.id }));
         dispatch(deleteTeacher({ id: teacherToDelete.id }));
+        dispatch(deleteUser(teacherToDelete.userId))
         setDeleteDialogOpen(false);
     };
-
-    // const handleSubjectChange = (subjectId) => {
-    //     if (newTeacherSubjects.includes(subjectId)) {
-    //         setNewTeacherSubjects(newTeacherSubjects.filter((id) => id !== subjectId));
-    //     } else {
-    //         setNewTeacherSubjects([...newTeacherSubjects, subjectId]);
-    //     }
-    // };
 
     const handleUpdateSubjectChange = (subjectId) => {
         if (teacherToUpdate?.subjectIds.includes(subjectId)) {
@@ -92,27 +84,42 @@ function TeachersPage() {
         return { removedSubjects, addedSubjects };
     };
 
+    const filteredTeachers = teachers.filter(teacher => {
+        const nameMatch = teacher.name.toLowerCase().includes(filterName.toLowerCase());
+        const subjectMatch = filterSubject
+            ? teacher.subjectIds.includes(parseInt(filterSubject))
+            : true;
+        return nameMatch && subjectMatch;
+    });
+
+    const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
+    const paginatedTeachers = filteredTeachers.slice((page - 1) * teachersPerPage, page * teachersPerPage);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
     return (
-        <div>
-            <h2>Teachers</h2>
-            <List>
-                {teachers.map((teacher) => (
-                    <ListItem key={teacher.id}>
-                        <ListItemText
-                            primary={teacher.name}
-                            secondary={`Subjects: ${teacher.subjectIds
-                                .map((id) => subjects.find((subject) => subject.id === id)?.name)
-                                .join(', ') || 'None'}`}
-                        />
-                        <Button onClick={() => handleOpenUpdateDialog(teacher)} size="small">
-                            Update
-                        </Button>
-                        <Button onClick={() => handleOpenDeleteConfirm(teacher)} size="small" color="secondary">
-                            Delete
-                        </Button>
-                    </ListItem>
-                ))}
-            </List>
+        <Box className="teachers-page-container">
+            <Typography variant="h2" component="h2" className="page-title">Teachers</Typography>
+            <TeacherFilters
+                filterName={filterName}
+                setFilterName={setFilterName}
+                filterSubject={filterSubject}
+                setFilterSubject={setFilterSubject}
+                subjects={subjects}
+            />
+            <TeacherList
+                paginatedTeachers={paginatedTeachers}
+                subjects={subjects}
+                handleOpenUpdateDialog={handleOpenUpdateDialog}
+                handleOpenDeleteConfirm={handleOpenDeleteConfirm}
+            />
+            <TeacherPagination
+                totalPages={totalPages}
+                page={page}
+                handlePageChange={handlePageChange}
+            />
             <UpdateTeacherDialog
                 open={updateDialogOpen}
                 onClose={() => setUpdateDialogOpen(false)}
@@ -128,7 +135,7 @@ function TeachersPage() {
                 itemName="teacher"
                 onConfirm={handleDeleteTeacherConfirm}
             />
-        </div>
+        </Box>
     );
 }
 
