@@ -1,6 +1,6 @@
 <h1><a id='top'>School Management Tool</a></h1>
 
-![School Management Tool](src/assets/README/collage.webp "School Management Tool")
+![School Management Tool](frontend/src/assets/README/collage.webp "School Management Tool")
 
 This project is a React-based School Management System built using Redux for state management, Material-UI for UI components, and Apollo Client for GraphQL data fetching. It provides functionalities for managing pupils, teachers, subjects, and user authentication.
 
