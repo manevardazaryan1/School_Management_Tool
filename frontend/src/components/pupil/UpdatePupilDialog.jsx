@@ -1,6 +1,9 @@
-// src/components/pupil/UpdatePupilModal.js
+//  * UpdatePupilModal
+//  *
+//  * This component renders a modal for updating pupil information, including name, grades, and preferences.
+//  * It uses Material-UI Dialog and Form components to display and handle user input.
+//  *
 
-import React from 'react';
 import {
     Dialog,
     DialogTitle,
@@ -13,7 +16,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
-} from '@mui/material';
+} from "@mui/material"
 
 function UpdatePupilModal({
     open,
@@ -22,7 +25,6 @@ function UpdatePupilModal({
     updatedName,
     setUpdatedName,
     updatedGrades,
-    setUpdatedGrades,
     updatedPreference,
     setUpdatedPreference,
     subjects,
@@ -44,7 +46,7 @@ function UpdatePupilModal({
                                 style={{marginTop: "10px"}}
                             />
                         </Grid>
-                        {Object.entries(selectedPupil.grades).map(([subjectName, grade]) => (
+                        {Object.entries(selectedPupil.grades).map(([subjectName]) => (
                             <Grid item xs={12} sm={6} key={subjectName}>
                                 <TextField
                                     label={`${subjectName} Grade`}
@@ -80,7 +82,7 @@ function UpdatePupilModal({
                 <Button onClick={handleUpdatePupil} variant="contained" color="primary">Update</Button>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
 
-export default UpdatePupilModal;
+export default UpdatePupilModal

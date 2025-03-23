@@ -1,90 +1,95 @@
-// src/redux/slices/subjectsSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+//  * subjectsSlice
+//  *
+//  * This file defines a Redux slice for managing the state of subjects in the application.
+//  * It uses Redux Toolkit's `createSlice` to simplify the creation of actions and reducers.
+//  *
 
-let nextSubjectId = 1;
+import { createSlice } from "@reduxjs/toolkit"
+
+let nextSubjectId = 1
 
 const initialState = {
     subjects: [
-        { id: nextSubjectId++, name: 'Mathematics', teacherIds: [1] },
-        { id: nextSubjectId++, name: 'Science', teacherIds: [1] },
-        { id: nextSubjectId++, name: 'History', teacherIds: [2] },
+        { id: nextSubjectId++, name: 'Mathematics', teacherIds: [1, 4, 5] },
+        { id: nextSubjectId++, name: 'Science', teacherIds: [1, 3, 5] },
+        { id: nextSubjectId++, name: 'History', teacherIds: [2, 3, 5] },
     ],
-};
+}
 
 export const subjectsSlice = createSlice({
-    name: 'subjects',
+    name: "subjects",
     initialState,
     reducers: {
         addSubject: (state, action) => {
-            const { name, teacherIds } = action.payload;
-            const newSubject = { id: nextSubjectId++, name, teacherIds: teacherIds || [] };
-            state.subjects.push(newSubject);
-            return state;
+            const { name, teacherIds } = action.payload
+            const newSubject = { id: nextSubjectId++, name, teacherIds: teacherIds || [] }
+            state.subjects.push(newSubject)
+            return state
         },
         updateSubject: (state, action) => {
-            const { id, name, teacherIds } = action.payload;
-            const subject = state.subjects.find((subject) => subject.id === id);
+            const { id, name, teacherIds } = action.payload
+            const subject = state.subjects.find((subject) => subject.id === id)
             if (subject) {
-                subject.name = name;
-                subject.teacherIds = teacherIds;
+                subject.name = name
+                subject.teacherIds = teacherIds
             }
-            return state;
+            return state
         },
         deleteSubject: (state, action) => {
-            const { id } = action.payload;
-            state.subjects = state.subjects.filter((subject) => subject.id !== id);
-            return state;
+            const { id } = action.payload
+            state.subjects = state.subjects.filter((subject) => subject.id !== id)
+            return state
         },
         removeTeacherFromSubjects: (state, action) => {
-            const { teacherId } = action.payload;
+            const { teacherId } = action.payload
             state.subjects.forEach((subject) => {
-                subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId);
+                subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId)
             });
-            return state;
+            return state
         },
         updateSubjectTeacherByTeacher: (state, action) => {
             const { teacherId, subjectIds } = action.payload;
             state.subjects.forEach((subject) => {
                 if (subjectIds.includes(subject.id)) {
                     if (!subject.teacherIds.includes(teacherId)) {
-                        subject.teacherIds.push(teacherId);
+                        subject.teacherIds.push(teacherId)
                     }
                 } else {
-                    subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId);
+                    subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId)
                 }
             });
-            return state;
+            return state
         },
         updateSubjectTeacherByTeacherAdd: (state, action) => {
             const { teacherId, subjectIds } = action.payload;
             state.subjects.forEach((subject) => {
                 if (subjectIds.includes(subject.id)) {
-                    if (subject.teacherIds) { // Add this check
+                    if (subject.teacherIds) { 
                         if (!subject.teacherIds.includes(teacherId)) {
-                            subject.teacherIds.push(teacherId);
+                            subject.teacherIds.push(teacherId)
                         }
                     } else {
-                        subject.teacherIds = [teacherId]; // if teacherIds is undefined, initialize it with the teacherId
+                        subject.teacherIds = [teacherId]
                     }
                 }
             });
-            return state;
+            return state
         },
         addTeacherToSubject: (state, action) => {
-            const { subjectId, teacherId } = action.payload;
-            const subject = state.subjects.find((subject) => subject.id === subjectId);
+            const { subjectId, teacherId } = action.payload
+            const subject = state.subjects.find((subject) => subject.id === subjectId)
             if (subject && !subject.teacherIds.includes(teacherId)) {
-                subject.teacherIds.push(teacherId);
+                subject.teacherIds.push(teacherId)
             }
-            return state;
+            return state
         },
         removeTeacherFromSubject: (state, action) => {
-            const { subjectId, teacherId } = action.payload;
-            const subject = state.subjects.find((subject) => subject.id === subjectId);
+            const { subjectId, teacherId } = action.payload
+            const subject = state.subjects.find((subject) => subject.id === subjectId)
             if (subject) {
-                subject.teacherIds = subject.teacherIds.filter((id) => id !== teacherId);
+                subject.teacherIds = subject.teacherIds.filter((id) => id !== teacherId)
             }
-            return state;
+            return state
         },
     },
 });
@@ -98,6 +103,6 @@ export const {
     updateSubjectTeacherByTeacherAdd,
     addTeacherToSubject,
     removeTeacherFromSubject,
-} = subjectsSlice.actions;
+} = subjectsSlice.actions
 
-export default subjectsSlice.reducer;
+export default subjectsSlice.reducer

@@ -1,3 +1,5 @@
+/* Styles for the main App component. */
+
 .App {
   text-align: center;
 }
@@ -35,4 +37,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input:focus {
+  background-color: transparent !important;
 }

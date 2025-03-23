@@ -1,3 +1,5 @@
+/* Styles for the main container of the User page. */
+
 .user-container {
     min-height: 100vh;
     position: absolute;
@@ -24,8 +26,8 @@
     width: 100%;
 }
 
-.dashboard-row,
-.dashboard {
+.dashboard,
+.dashboard-row {
     width: 100%;
 }
 

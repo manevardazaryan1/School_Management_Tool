@@ -1,3 +1,5 @@
+/* Styles for the main container of the Teachers page. */
+
 .teachers-page-container {
     min-height: 100vh;
     position: absolute;
@@ -7,8 +9,8 @@
     width: 100%;
     max-width: 100% !important;
     background-image: linear-gradient(to bottom, 
-    black 64px, /* Black top 64px */
-    #333333 64px); /* Remainder is your color */ 
+    black 64px,
+    #333333 64px);
 }
 
 .list-item {

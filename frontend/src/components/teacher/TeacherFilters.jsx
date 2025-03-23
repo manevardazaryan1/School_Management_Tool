@@ -1,6 +1,10 @@
-// src/components/teacher/TeacherFilters.js
-import React from 'react';
-import { TextField, FormControl, Select, MenuItem, InputLabel, Box } from '@mui/material';
+//  * TeacherFilters
+//  *
+//  * This component renders filter inputs for teachers, allowing users to filter teachers by name and subject.
+//  * It uses Material-UI TextField, FormControl, Select, MenuItem, InputLabel, and Box components.
+//  *
+
+import { TextField, FormControl, Select, MenuItem, InputLabel, Box } from "@mui/material"
 
 function TeacherFilters({ filterName, setFilterName, filterSubject, setFilterSubject, subjects }) {
     return (
@@ -27,7 +31,7 @@ function TeacherFilters({ filterName, setFilterName, filterSubject, setFilterSub
                 </Select>
             </FormControl>
         </Box>
-    );
+    )
 }
 
-export default TeacherFilters;
+export default TeacherFilters

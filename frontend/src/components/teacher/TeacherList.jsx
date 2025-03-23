@@ -1,7 +1,12 @@
-// src/components/teacher/TeacherList.js
-import React from 'react';
-import { List } from '@mui/material';
-import TeacherListItem from './TeacherListItem';
+//  * TeacherList
+//  *
+//  * This component renders a list of teachers using the TeacherListItem component.
+//  * It maps through the paginatedTeachers array and passes each teacher's data along with
+//  * subject data and handler functions to the TeacherListItem component.
+//  *
+ 
+import { List } from "@mui/material"
+import TeacherListItem from "./TeacherListItem"
 
 function TeacherList({ paginatedTeachers, subjects, handleOpenUpdateDialog, handleOpenDeleteConfirm }) {
     return (
@@ -16,7 +21,7 @@ function TeacherList({ paginatedTeachers, subjects, handleOpenUpdateDialog, hand
                 />
             ))}
         </List>
-    );
+    )
 }
 
-export default TeacherList;
+export default TeacherList

@@ -1,8 +1,14 @@
-const userResolvers = require('./userResolvers');
-const teacherResolvers = require('./teacherResolvers');
-const pupilResolvers = require('./pupilResolvers');
-const subjectResolvers = require('./subjectResolvers');
-const adminResolvers = require('./adminResolvers');
+//  * resolvers
+//  *
+//  * This file aggregates all GraphQL resolvers from different modules (user, teacher, pupil, subject, admin)
+//  * into a single resolvers object. It also includes the JSON scalar type for handling JSON data.
+//  *
+
+const userResolvers = require("./userResolvers")
+const teacherResolvers = require("./teacherResolvers")
+const pupilResolvers = require("./pupilResolvers")
+const subjectResolvers = require("./subjectResolvers")
+const adminResolvers = require("./adminResolvers")
 
 const resolvers = {
   Query: {
@@ -24,7 +30,7 @@ const resolvers = {
   Pupil: pupilResolvers.Pupil,
   Subject: subjectResolvers.Subject,
   Admin: adminResolvers.Admin,
-  JSON: require('graphql-type-json').GraphQLJSONObject, // Add JSON scalar
-};
+  JSON: require('graphql-type-json').GraphQLJSONObject,
+}
 
-module.exports = resolvers;
+module.exports = resolvers

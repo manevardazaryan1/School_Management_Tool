@@ -1,13 +1,16 @@
-// src/components/ConfirmDeletePupil.js
+//  * ConfirmDeletePupil
+//  *
+//  * This component renders a confirmation dialog for deleting a pupil.
+//  * It uses Material-UI Dialog components to display a confirmation message and action buttons.
+//  *
 
-import React from 'react';
 import {
     Dialog,
     DialogTitle,
     DialogContent,
     DialogActions,
     Button,
-} from '@mui/material';
+} from "@mui/material"
 
 function ConfirmDeletePupil({ open, onClose, onConfirm, pupilName }) {
     return (
@@ -25,7 +28,7 @@ function ConfirmDeletePupil({ open, onClose, onConfirm, pupilName }) {
                 </Button>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
 
-export default ConfirmDeletePupil;
+export default ConfirmDeletePupil

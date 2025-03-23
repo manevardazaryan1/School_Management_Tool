@@ -1,7 +1,13 @@
-import { useSelector } from 'react-redux';
-import { Typography, Box, List, ListItem, ListItemText } from '@mui/material';
+//  * PupilDashboard
+//  *
+//  * This component renders the dashboard for a pupil, displaying their information such as name, preferences,
+//  * advanced subject, and grades. It fetches pupil data from the Redux store based on the current user's ID.
+//  *
 
-export default function PupilDashboard() {
+import { useSelector } from "react-redux"
+import { Typography, Box, List, ListItem, ListItemText } from "@mui/material"
+
+function PupilDashboard() {
     const currentUserId = useSelector((state) => state.auth.currentUser.id);
     const pupils = useSelector((state) => state.pupils.pupils);
 
@@ -12,7 +18,8 @@ export default function PupilDashboard() {
     }
 
     if (!pupil) {
-        return <Typography variant="h3" component="h3" style={{textAlign: "center"}}>Pupil information not found.</Typography>
+        return <Typography variant="h3" component="h3" 
+        style={{textAlign: "center"}}>Pupil information not found.</Typography>
     }
 
     return (
@@ -42,5 +49,7 @@ export default function PupilDashboard() {
                 </List>
             </Box>
         </Box>
-    );
+    )
 }
+
+export default PupilDashboard

@@ -1,7 +1,12 @@
-// src/components/pupil/PupilList.js
-import React from 'react';
-import { List } from '@mui/material';
-import PupilListItem from './PupilListItem';
+//  * PupilFilters
+//  *
+//  * This component renders a set of filters for pupils, allowing users to filter pupils by name,
+//  * advanced subject, preference, grade subject, and grade value.
+//  * It uses Material-UI components for input fields and dropdowns.
+//  *
+ 
+import { List } from "@mui/material"
+import PupilListItem from "./PupilListItem"
 
 function PupilList({ paginatedPupils, handleOpenModal, handleDeletePupil, subjects }) {
     return (
@@ -16,7 +21,7 @@ function PupilList({ paginatedPupils, handleOpenModal, handleDeletePupil, subjec
                 />
             ))}
         </List>
-    );
+    )
 }
 
-export default PupilList;
+export default PupilList

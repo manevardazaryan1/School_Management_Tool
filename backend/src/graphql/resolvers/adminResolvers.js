@@ -1,5 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+//  * adminResolvers
+//  *
+//  * This file defines the GraphQL resolvers for the Admin model, handling queries and mutations.
+//  * It uses Prisma Client to interact with the database.
+//  *
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const adminResolvers = {
   Query: {
@@ -27,6 +33,6 @@ const adminResolvers = {
   Admin: {
     user: (parent) => prisma.user.findUnique({where: {id: parent.userId}})
   }
-};
+}
 
-module.exports = adminResolvers;
+module.exports = adminResolvers

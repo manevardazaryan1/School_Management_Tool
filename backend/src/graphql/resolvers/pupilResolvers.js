@@ -1,5 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+//  * pupilResolvers
+//  *
+//  * This file defines the GraphQL resolvers for the Pupil model, handling queries and mutations.
+//  * It uses Prisma Client to interact with the database.
+//  *
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const pupilResolvers = {
   Query: {
@@ -17,19 +23,19 @@ const pupilResolvers = {
           assignedSubject,
           user: { connect: { id: parseInt(userId) } },
         },
-      });
+      })
     },
     updatePupil: (_, { id, firstName, lastName, grades, preferences, assignedSubject }) => {
       return prisma.pupil.update({
         where: { id: parseInt(id) },
         data: { firstName, lastName, grades, preferences, assignedSubject },
-      });
+      })
     },
     deletePupil: (_, { id }) => prisma.pupil.delete({ where: { id: parseInt(id) } }),
   },
   Pupil: {
     user: (parent) => prisma.user.findUnique({where: {id: parent.userId}})
   },
-};
+}
 
-module.exports = pupilResolvers;
+module.exports = pupilResolvers

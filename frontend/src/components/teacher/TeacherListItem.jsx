@@ -1,6 +1,10 @@
-// src/components/teacher/TeacherListItem.js
-import React from 'react';
-import { ListItem, ListItemText, Box, Button } from '@mui/material';
+//  * TeacherListItem
+//  *
+//  * This component renders a list item for a teacher, displaying the teacher's name and assigned subjects.
+//  * It also provides buttons for updating and deleting the teacher.
+//  *
+  
+import { ListItem, ListItemText, Box, Button } from "@mui/material"
 
 function TeacherListItem({ teacher, subjects, handleOpenUpdateDialog, handleOpenDeleteConfirm }) {
     return (
@@ -9,7 +13,7 @@ function TeacherListItem({ teacher, subjects, handleOpenUpdateDialog, handleOpen
                 primary={teacher.name}
                 secondary={`Subjects: ${teacher.subjectIds
                     .map((id) => subjects.find((subject) => subject.id === id)?.name)
-                    .join(', ') || 'None'}`}
+                    .join(', ') || "None"}`}
                 className="subjects-list"
             />
             <Box className="buttons">
@@ -21,7 +25,7 @@ function TeacherListItem({ teacher, subjects, handleOpenUpdateDialog, handleOpen
                 </Button>
             </Box>
         </ListItem>
-    );
+    )
 }
 
-export default TeacherListItem;
+export default TeacherListItem

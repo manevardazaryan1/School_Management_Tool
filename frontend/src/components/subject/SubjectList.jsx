@@ -1,7 +1,12 @@
-// src/components/subject/SubjectList.js
-import React from 'react';
-import { List } from '@mui/material';
-import SubjectListItem from './SubjectListItem';
+//  * SubjectList
+//  *
+//  * This component renders a list of subjects using the SubjectListItem component.
+//  * It maps through the paginatedSubjects array and passes each subject's data along with
+//  * teacher data and handler functions to the SubjectListItem component.
+//  *
+
+import { List } from "@mui/material"
+import SubjectListItem from "./SubjectListItem"
 
 function SubjectList({ paginatedSubjects, teachers, handleOpenUpdateDialog, handleOpenDeleteConfirm }) {
     return (
@@ -16,7 +21,7 @@ function SubjectList({ paginatedSubjects, teachers, handleOpenUpdateDialog, hand
                 />
             ))}
         </List>
-    );
+    )
 }
 
-export default SubjectList;
+export default SubjectList

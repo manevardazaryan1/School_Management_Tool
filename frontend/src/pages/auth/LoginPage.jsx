@@ -1,15 +1,20 @@
-// src/pages/LoginPage.js
+//  * LoginPage
+//  *
+//  * This component renders the login page, including the LoginForm and a link to the registration page.
+//  * It uses Material-UI components for layout and styling.
+//  *
 
-import React from 'react';
-import LoginForm from '../../components/auth/LoginForm';
-import { Container, Typography, Paper, Box, Link } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import LoginForm from "../../components/auth/LoginForm"
+import { Container, Typography, Paper, Box, Link } from "@mui/material"
+import { Link as RouterLink } from "react-router-dom"
 import "./Auth.css"
 
 function LoginPage() {
   return (
     <Container maxWidth="xs" className="auth-section">
-      <Paper className="auth-form" elevation={3} sx={{ padding: 4, marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Paper className="auth-form" 
+      elevation={3} 
+      sx={{ padding: 4, marginTop: 8, display: "flex", flexDirection: "column", alignItems: 'center' }}>
         <Typography variant="h5" gutterBottom>
           Login
         </Typography>
@@ -18,7 +23,7 @@ function LoginPage() {
         </Box>
         <Box mt={2}>
           <Typography variant="body2">
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <Link component={RouterLink} to="/register" variant="body2">
               Register
             </Link>
@@ -26,7 +31,7 @@ function LoginPage() {
         </Box>
       </Paper>
     </Container>
-  );
+  )
 }
 
-export default LoginPage;
+export default LoginPage

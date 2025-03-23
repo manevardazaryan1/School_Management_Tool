@@ -1,6 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, Typography, Button } from '@mui/material';
+//  * SubjectCard
+//  *
+//  * This component renders a Material-UI Card that displays a link to the subjects page.
+//  * It's used within the admin dashboard to provide quick navigation.
+//  *
+
+import { Link } from "react-router-dom"
+import { Card, CardContent, Typography, Button } from "@mui/material"
 import "./Cards.css"
 
 function SubjectCard() {
@@ -13,7 +18,7 @@ function SubjectCard() {
         </Button>
       </CardContent>
     </Card>
-  );
+  )
 }
 
-export default SubjectCard;
+export default SubjectCard

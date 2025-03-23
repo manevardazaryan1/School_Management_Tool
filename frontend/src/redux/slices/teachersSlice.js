@@ -1,41 +1,49 @@
-// src/redux/slices/teachersSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+//  * teachersSlice
+//  *
+//  * This file defines a Redux slice for managing the state of teachers in the application.
+//  * It uses Redux Toolkit's `createSlice` to simplify the creation of actions and reducers.
+//  *
 
-let nextTeacherId = 1;
+import { createSlice } from "@reduxjs/toolkit"
+
+let nextTeacherId = 1
 
 const initialState = {
     teachers: [
-        { id: nextTeacherId++, userId: 2, name: 'Mr. Smith', subjectIds: [1, 2] }, // Math and Science
-        { id: nextTeacherId++, userId: null, name: 'Ms. Johnson', subjectIds: [3] }, // History
+        { id: nextTeacherId++, userId: 2, name: "Mr. Smith", subjectIds: [1, 2] },
+        { id: nextTeacherId++, userId: 3, name: "Ms. Liam", subjectIds: [3] },
+        { id: nextTeacherId++, userId: 4, name: "Mr. James", subjectIds: [2, 3] },
+        { id: nextTeacherId++, userId: 5, name: "Mr. Oliver", subjectIds: [1] },
+        { id: nextTeacherId++, userId: 6, name: "Ms. Johnson", subjectIds: [1, 2, 3] },
     ],
-};
+}
 
 export const teachersSlice = createSlice({
-    name: 'teachers',
+    name: "teachers",
     initialState,
     reducers: {
         addTeacher: (state, action) => {
-            const { name, userId } = action.payload;
-            const newTeacher = { id: nextTeacherId++, subjectIds: [], name, userId };
-            state.teachers.push(newTeacher);
-            return state;
+            const { name, userId } = action.payload
+            const newTeacher = { id: nextTeacherId++, subjectIds: [], name, userId }
+            state.teachers.push(newTeacher)
+            return state
         },
         updateTeacher: (state, action) => {
-            const { id, name, subjectIds } = action.payload;
-            const teacher = state.teachers.find((teacher) => teacher.id === id);
+            const { id, name, subjectIds } = action.payload
+            const teacher = state.teachers.find((teacher) => teacher.id === id)
             if (teacher) {
-                teacher.name = name;
-                teacher.subjectIds = subjectIds || [];
+                teacher.name = name
+                teacher.subjectIds = subjectIds || []
             }
-            return state;
+            return state
         },
         deleteTeacher: (state, action) => {
-            const { id } = action.payload;
-            state.teachers = state.teachers.filter((teacher) => teacher.id !== id);
-            return state;
+            const { id } = action.payload
+            state.teachers = state.teachers.filter((teacher) => teacher.id !== id)
+            return state
         },
     },
-});
+})
 
-export const { addTeacher, updateTeacher, deleteTeacher } = teachersSlice.actions;
-export default teachersSlice.reducer;
+export const { addTeacher, updateTeacher, deleteTeacher } = teachersSlice.actions
+export default teachersSlice.reducer

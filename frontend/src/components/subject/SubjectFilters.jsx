@@ -1,6 +1,10 @@
-// src/components/subject/SubjectFilters.js
-import React from 'react';
-import { TextField, Box } from '@mui/material';
+//  * SubjectFilters
+//  *
+//  * This component renders a filter input field for subjects, allowing users to filter subjects by name.
+//  * It uses Material-UI TextField and Box components.
+//  *
+
+import { TextField, Box } from "@mui/material"
 
 function SubjectFilters({ filterName, setFilterName }) {
     return (
@@ -12,7 +16,7 @@ function SubjectFilters({ filterName, setFilterName }) {
                 className="filter-input"
             />
         </Box>
-    );
+    )
 }
 
-export default SubjectFilters;
+export default SubjectFilters

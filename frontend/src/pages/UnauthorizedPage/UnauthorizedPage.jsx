@@ -1,22 +1,24 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button, Typography, Container, Paper, Box } from '@mui/material';
+//  * UnauthorizedPage
+//  *
+//  * This component renders an Unauthorized (403) page with a message and a button to navigate back.
+//  * It uses Material-UI components for layout and styling.
+//  *
+ 
+import { useNavigate } from "react-router-dom"
+import { Button, Typography, Container, Paper, Box } from "@mui/material"
 import "./UnauthorizedPage.css"
 
 function UnauthorizedPage() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleGoBack = () => {
-        console.log('Go back clicked');
-        console.log('History length:', window.history.length);
         if (window.history.length > 1) {
-            console.log('Going back');
-            window.history.back();
+            window.history.back()
         } else {
-            console.log('Going to home');
-            navigate('/');
+            console.log("Going to home")
+            navigate("/")
         }
-    };
+    }
 
     return (
         <Container maxWidth="sm" className="unauthorized-page-container">
@@ -26,7 +28,7 @@ function UnauthorizedPage() {
                 alignItems="center"
                 minHeight="80vh"
             >
-                <Paper elevation={3} sx={{ padding: 4, textAlign: 'center' }}>
+                <Paper elevation={3} sx={{ padding: 4, textAlign: "center" }}>
                     <Typography variant="h4" gutterBottom>
                         Unauthorized Access
                     </Typography>
@@ -39,7 +41,7 @@ function UnauthorizedPage() {
                 </Paper>
             </Box>
         </Container>
-    );
+    )
 }
 
-export default UnauthorizedPage;
+export default UnauthorizedPage

@@ -1,16 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { ApolloProvider } from '@apollo/client';
-import client from './apollo';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import { ThemeProvider} from '@mui/material';
-import { theme } from './schema/theme';
+//  * index
+//  *
+//  * This file is the entry point of the React application. It renders the App component
+//  * within a React StrictMode, wrapped in ApolloProvider, Provider (Redux), and ThemeProvider (Material-UI).
+//  * It also initializes the Apollo Client, Redux store, and Material-UI theme.
+//  *
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import React from "react"
+import ReactDOM from "react-dom/client"
+import App from "./App"
+import reportWebVitals from "./reportWebVitals"
+import client from "./apollo"
+import store from "./redux/store"
+import { ApolloProvider } from "@apollo/client"
+import { Provider } from "react-redux"
+import { ThemeProvider} from "@mui/material"
+import { theme } from "./schema/theme"
+import "./index.css"
+
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
@@ -21,9 +28,6 @@ root.render(
       </Provider> 
     </ApolloProvider>
   </React.StrictMode>
-);
+)
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()

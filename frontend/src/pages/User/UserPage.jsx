@@ -1,59 +1,65 @@
-// src/components/UserPage.js
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import AdminDashboard from '../../components/Dashboards/AdminDashboard';
-import TeacherDashboard from '../../components/Dashboards/TeacherDashboard';
-import PupilDashboard from '../../components/Dashboards/PupilDashboard';
-import { useNavigate } from 'react-router-dom';
-import { Box, Container, Typography } from '@mui/material';
+//  * UserPage
+//  *
+//  * This component renders the user's dashboard based on their role. It fetches the current user
+//  * from the Redux store and displays the appropriate dashboard component (AdminDashboard,
+//  * TeacherDashboard, or PupilDashboard). It also handles navigation if the user is not authenticated.
+//  *
+ 
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { Box, Container, Typography } from "@mui/material"
+import AdminDashboard from "../../components/Dashboards/AdminDashboard"
+import TeacherDashboard from "../../components/Dashboards/TeacherDashboard"
+import PupilDashboard from "../../components/Dashboards/PupilDashboard"
 import "./UserPage.css"
 
 function UserPage() {
-  const currentUser = useSelector((state) => state.auth.currentUser);
-  const navigate = useNavigate();
-  const [loading, setLoading] = useState(true); // Add loading state
+  const currentUser = useSelector((state) => state.auth.currentUser)
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (currentUser === null && !loading) {
-      navigate('/');
+      navigate("/")
     } else {
-        setLoading(false);
+        setLoading(false)
     }
-  }, [currentUser, navigate, loading]);
+  }, [currentUser, navigate, loading])
 
   const renderDashboard = () => {
     switch (currentUser.role.toUpperCase()) {
-      case 'ADMIN':
-        return <AdminDashboard />;
-      case 'TEACHER':
-        return <TeacherDashboard />;
-      case 'PUPIL':
-        return <PupilDashboard />;
+      case "ADMIN":
+        return <AdminDashboard />
+      case "TEACHER":
+        return <TeacherDashboard />
+      case "PUPIL":
+        return <PupilDashboard />
       default:
-        return <p>Unknown role.</p>;
+        return <Typography variant="body1" paragraph>Unknown role.</Typography>
     }
-  };
+  }
 
   if (loading) {
-    return <p>Loading...</p>; // Or a loading spinner
+    return <Typography variant="body1" paragraph>Loading...</Typography>
   }
 
   if (!currentUser) {
-    return null; // or return a loading indicator
+    return null
   }
 
   return (
     <Container className="user-container">
       <Box className="user-dashboard-box">
         <Typography variant="h3" component="h2" gutterBottom className="user-page-title">
-          {currentUser.role} {currentUser.name.toUpperCase()}
+          {currentUser.role.toUpperCase()} {currentUser.name.toUpperCase()}
         </Typography>
         <Box className="dashboard">
           {renderDashboard()}
         </Box>
       </Box>
     </Container>
-  );
+  )
 }
 
-export default UserPage;
+export default UserPage

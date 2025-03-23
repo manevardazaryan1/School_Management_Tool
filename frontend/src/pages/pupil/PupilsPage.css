@@ -1,3 +1,5 @@
+/* Styles for the main container of the Pupils page. */
+
 .pupils-page-container {
     min-height: 100vh;
     position: absolute;
@@ -7,8 +9,8 @@
     width: 100%;
     max-width: 100% !important;
     background-image: linear-gradient(to bottom, 
-    black 64px, /* Black top 64px */
-    #333333 64px); /* Remainder is your color */ 
+    black 64px,
+    #333333 64px);
 }
 
 .page-title {
@@ -36,17 +38,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50%;
+    width: 100%;
     margin: auto;
 }
 
 .filter-form div {
     width: 100%;
     margin-bottom: 10px;
-}
-
-.filter-form input {
-    color: #fff;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -58,8 +56,10 @@
     .list-item .buttons {
         align-self: flex-end;
     }
+}
 
-    .filter-form {
-        width: 90%;
+@media only screen and (max-width: 450px) { 
+    .filter-modal > div{
+        width: 90% !important;
     }
 }

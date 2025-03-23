@@ -1,6 +1,9 @@
-// src/components/subject/SubjectPagination.js
-import React from 'react';
-import { Pagination } from '@mui/material';
+//  * SubjectPagination
+//  *
+//  * This component renders a Material-UI Pagination component for navigating through pages of subjects.
+//  *
+
+import { Pagination } from "@mui/material"
 
 function SubjectPagination({ totalPages, page, handlePageChange }) {
     return (
@@ -10,7 +13,7 @@ function SubjectPagination({ totalPages, page, handlePageChange }) {
             onChange={handlePageChange}
             className="pagination"
         />
-    );
+    )
 }
 
-export default SubjectPagination;
+export default SubjectPagination

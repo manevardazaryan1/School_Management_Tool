@@ -1,32 +1,45 @@
-// src/components/UpdateTeacherDialog.js
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, FormControl, FormControlLabel, Checkbox } from '@mui/material';
+//  * UpdateTeacherDialog
+//  *
+//  * This component renders a dialog for updating teacher information, including name and assigned subjects.
+//  * It uses Material-UI Dialog, TextField, FormControl, FormControlLabel, and Checkbox components.
+//  *
+
+import React, { useState, useEffect } from "react"
+import { Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogActions, 
+    Button, 
+    TextField, 
+    FormControl, 
+    FormControlLabel, 
+    Checkbox } from "@mui/material"
 import "./UpdateDeleteTeacher.css"
 
-function UpdateTeacherDialog({ open, onClose, teacher, subjects, onUpdate, onSubjectChange }) {
-    const [teacherName, setTeacherName] = useState(teacher ? teacher.name : '');
+function UpdateTeacherDialog({ open, onClose, teacher, subjects, onUpdate }) {
+    const [teacherName, setTeacherName] = useState(teacher ? teacher.name : "");
     const [teacherSubjects, setTeacherSubjects] = useState(teacher ? [...teacher.subjectIds] : []);
 
     useEffect(() => {
         if (teacher) {
             setTeacherName(teacher.name);
-            setTeacherSubjects([...teacher.subjectIds]);
+            setTeacherSubjects([...teacher.subjectIds])
         }
-    }, [teacher]);
+    }, [teacher])
 
     const handleSubjectChange = (subjectId) => {
         if (teacherSubjects.includes(subjectId)) {
-            setTeacherSubjects(teacherSubjects.filter((id) => id !== subjectId));
+            setTeacherSubjects(teacherSubjects.filter((id) => id !== subjectId))
         } else {
-            setTeacherSubjects([...teacherSubjects, subjectId]);
+            setTeacherSubjects([...teacherSubjects, subjectId])
         }
     };
 
     const handleUpdate = () => {
-        onUpdate(teacherName, teacherSubjects);
-    };
+        onUpdate(teacherName, teacherSubjects)
+    }
 
-    if (!teacher) return null;
+    if (!teacher) return null
 
     return (
         <Dialog open={open} onClose={onClose}>
@@ -60,7 +73,7 @@ function UpdateTeacherDialog({ open, onClose, teacher, subjects, onUpdate, onSub
                 </Button>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
 
-export default UpdateTeacherDialog;
+export default UpdateTeacherDialog

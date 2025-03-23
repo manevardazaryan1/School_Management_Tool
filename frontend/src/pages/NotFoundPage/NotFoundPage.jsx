@@ -1,12 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-import { Button, Typography, Container, Paper, Box } from '@mui/material';
+//  * NotFoundPage
+//  *
+//  * This component renders a 404 Not Found page with a message and a button to navigate back to the homepage.
+//  * It uses Material-UI components for layout and styling.
+//  *
+
+import { useNavigate } from "react-router-dom"
+import { Button, Typography, Container, Paper, Box } from "@mui/material"
 import "./NotFoundPage.css"
 
 function NotFoundPage() {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const handleGoHome = () => {
-        navigate('/');
+        navigate("/")
     };
 
     return (
@@ -17,7 +23,7 @@ function NotFoundPage() {
                 alignItems="center"
                 minHeight="80vh"
             >
-                <Paper elevation={3} sx={{ padding: 4, textAlign: 'center' }}>
+                <Paper elevation={3} sx={{ padding: 4, textAlign: "center" }}>
                     <Typography variant="h1" gutterBottom>
                         404
                     </Typography>
@@ -33,7 +39,7 @@ function NotFoundPage() {
                 </Paper>
             </Box>
         </Container>
-    );
+    )
 }
 
-export default NotFoundPage;
+export default NotFoundPage

@@ -1,5 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+//  * userResolvers
+//  *
+//  * This file defines the GraphQL resolvers for the User model, handling queries and mutations.
+//  * It uses Prisma Client to interact with the database.
+//  *
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const userResolvers = {
   Query: {
@@ -24,7 +30,7 @@ const userResolvers = {
       return prisma.user.update({
         where: { id: parseInt(id) },
         data: { email, password, role },
-      });
+      })
     },
     deleteUser: (_, { id }) => prisma.user.delete({ where: { id: parseInt(id) } }),
   },
@@ -35,4 +41,4 @@ const userResolvers = {
   },
 };
 
-module.exports = userResolvers;
+module.exports = userResolvers

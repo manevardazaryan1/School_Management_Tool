@@ -1,5 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+//  * subjectResolvers
+//  *
+//  * This file defines the GraphQL resolvers for the Subject model, handling queries and mutations.
+//  * It uses Prisma Client to interact with the database.
+//  *
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const subjectResolvers = {
   Query: {
@@ -25,6 +31,6 @@ const subjectResolvers = {
   Subject: {
     teachers: (parent) => prisma.subject.findUnique({where: {id: parent.id}}).teachers()
   }
-};
+}
 
-module.exports = subjectResolvers;
+module.exports = subjectResolvers

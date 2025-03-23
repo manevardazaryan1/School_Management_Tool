@@ -1,6 +1,9 @@
-// src/components/teacher/TeacherPagination.js
-import React from 'react';
-import { Pagination } from '@mui/material';
+//  * TeacherPagination
+//  *
+//  * This component renders a Material-UI Pagination component for navigating through pages of teachers.
+//  *
+
+import { Pagination } from "@mui/material"
 
 function TeacherPagination({ totalPages, page, handlePageChange }) {
     return (
@@ -10,7 +13,7 @@ function TeacherPagination({ totalPages, page, handlePageChange }) {
             onChange={handlePageChange}
             className="pagination"
         />
-    );
+    )
 }
 
-export default TeacherPagination;
+export default TeacherPagination

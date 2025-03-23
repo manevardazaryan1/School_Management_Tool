@@ -1,4 +1,10 @@
-import * as Yup from 'yup';
+//  * registerValidationSchema
+//  *
+//  * This file defines a Yup validation schema for user registration fields, including name,
+//  * email, password, and role. It is used for form validation during the registration process.
+//  *
+
+import * as Yup from "yup"
 
 export const validationSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Name must be at least 2 characters').required('Name is required'),
@@ -10,4 +16,4 @@ export const validationSchema = Yup.object().shape({
   .matches(/[0-9]+/, 'Password must contain at least one number')
   .matches(/[^a-zA-Z0-9]+/, 'Password must contain at least one special character'),
   role: Yup.string().oneOf(['PUPIL', 'TEACHER', 'ADMIN']).required('Role is required'),
-});
+})

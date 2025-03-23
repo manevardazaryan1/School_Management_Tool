@@ -1,5 +1,11 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+//  * teacherResolvers
+//  *
+//  * This file defines the GraphQL resolvers for the Teacher model, handling queries and mutations.
+//  * It uses Prisma Client to interact with the database.
+//  *
+
+const { PrismaClient } = require("@prisma/client")
+const prisma = new PrismaClient()
 
 const teacherResolvers = {
   Query: {
@@ -29,6 +35,6 @@ const teacherResolvers = {
     subjects: (parent) => prisma.teacher.findUnique({ where: { id: parent.id } }).subjects(),
     user: (parent) => prisma.user.findUnique({where: {id: parent.userId}})
   },
-};
+}
 
-module.exports = teacherResolvers;
+module.exports = teacherResolvers

@@ -1,7 +1,10 @@
+/* Styles for the authentication section (background and layout). */
+
 .auth-section {
     width: 100% !important;
     max-width: unset !important;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../assets/images/heroImage/heroImage.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+    url("../../assets/images/heroImage/heroImage.webp");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

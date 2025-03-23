@@ -1,26 +1,38 @@
-// src/features/auth/authSlice.js
+//  * authSlice
+//  *
+//  * This file defines a Redux slice for managing user authentication and related state.
+//  * It uses Redux Toolkit's `createSlice` to simplify the creation of actions and reducers.
+//  * It also includes asynchronous actions for handling user registration and dispatching user data
+//  * to other slices based on the user's role.
+//  *
 
-import { createSlice } from '@reduxjs/toolkit';
-import { addTeacher } from './teachersSlice';
-import { addPupil } from './pupilsSlice';
-import { addAdmin } from './adminsSlice';
+import { createSlice } from "@reduxjs/toolkit"
+import { addTeacher } from "./teachersSlice"
+import { addPupil } from "./pupilsSlice"
+import { addAdmin } from "./adminsSlice"
+
+let nextUserId = 0
 
 const initialState = {
   users: [
-    { id: 1, name: "user1", email: 'user1@example.com', password: 'password1', role: 'admin' },
-    { id: 2, name: "user2", email: 'user2@example.com', password: 'password2', role: 'teacher' },
-    { id: 3, name: "user3", email: 'user3@example.com', password: 'password3', role: 'pupil' },
+    { id: nextUserId++, name: "admin", email: "admin@example.com", password: "Admin_12345", role: "admin" },
+    { id: nextUserId++, name: "Mr. Smith", email: "smith@example.com", password: "Smith_12345", role: "teacher" },
+    { id: nextUserId++, name: "Ms. Liam", email: "liam@example.com", password: "Liam_12345", role: "teacher" },
+    { id: nextUserId++, name: "Mr. James", email: "james@example.com", password: "James_12345", role: "teacher" },
+    { id: nextUserId++, name: "Mr. Oliver", email: "oliver@example.com", password: "Oliver_12345", role: "teacher" },
+    { id: nextUserId++, name: "Ms. Johnson", email: "johnson@example.com", password: "Johnson_12345", role: "teacher" },
+    { id: nextUserId++, name: "Alice Johnson", email: "alice@example.com", password: "Alice_12345", role: "pupil" },
+    { id: nextUserId++, name: "Emma Brown", email: "emma@example.com", password: "Emma_12345", role: "pupil" },
   ],
   currentUser: null,
   loginError: null,
   registerError: null,
-};
+}
 
-let nextUserId = 4; // Initialize a unique ID for new users
 let userExists = false
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     login: (state, action) => {
@@ -32,33 +44,33 @@ export const authSlice = createSlice({
       if (user) {
         state.currentUser = user;
         state.loginError = null;
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem("currentUser", JSON.stringify(user))
       } else {
-        state.currentUser = null;
-        state.loginError = 'Invalid email or password.';
+        state.currentUser = null
+        state.loginError = "Invalid email or password."
       }
     },
     logout: (state) => {
       state.currentUser = null;
-      localStorage.removeItem('currentUser');
+      localStorage.removeItem("currentUser")
     },
     loadStoredUser: (state) => {
-      const storedUser = localStorage.getItem('currentUser');
+      const storedUser = localStorage.getItem("currentUser")
       if (storedUser) {
         try {
-          state.currentUser = JSON.parse(storedUser);
+          state.currentUser = JSON.parse(storedUser)
         } catch (error) {
-          localStorage.removeItem('currentUser'); // Clear invalid data
-          state.currentUser = null;
+          localStorage.removeItem("currentUser")
+          state.currentUser = null
         }
       }
     },
     register: (state, action) => {
       const { name, email, password, role, } = action.payload;
 
-      const existingUser = state.users.find((user) => user.email === email);
+      const existingUser = state.users.find((user) => user.email === email)
       if (existingUser) {
-        state.registerError = 'Email already in use.';
+        state.registerError = "Email already in use."
         userExists = true
         return;
       }
@@ -73,49 +85,49 @@ export const authSlice = createSlice({
       state.users.push(newUser);
       state.currentUser = newUser
       state.registerError = null;
-      localStorage.setItem('currentUser', JSON.stringify(newUser)); //save to localstorage
+      localStorage.setItem('currentUser', JSON.stringify(newUser))
 
     },
     clearRegisterError: (state) => {
-      state.registerError = null;
+      state.registerError = null
     },
     updateUser: (state, action) => {
-      const { userId, name } = action.payload;
-      const userIndex = state.users.findIndex(user => user.id === userId);
+      const { userId, name } = action.payload
+      const userIndex = state.users.findIndex(user => user.id === userId)
       if (userIndex !== -1) {
         state.users[userIndex] = {
           ...state.users[userIndex],
           name,
-        };
+        }
       }
     },
     deleteUser: (state, action) => {
-      const idToDelete = action.payload;
-      state.users = state.users.filter(user => user.id !== idToDelete);
+      const idToDelete = action.payload
+      state.users = state.users.filter(user => user.id !== idToDelete)
       if(state.currentUser && state.currentUser.id === idToDelete){
-        localStorage.removeItem('currentUser');
-        state.currentUser = null;
+        localStorage.removeItem("currentUser")
+        state.currentUser = null
       }
     },
   },
 });
 
 export const { login, logout, loadStoredUser, register, clearRegisterError, updateUser, deleteUser } =
-  authSlice.actions;
+  authSlice.actions
 
 
 export const registerAndDispatch = (userData) => (dispatch) => {
-    dispatch(authSlice.actions.register(userData));
+    dispatch(authSlice.actions.register(userData))
   
     if (userExists) return
     
-    if (userData.role.toUpperCase() === 'TEACHER') {
-      dispatch(addTeacher({...userData, userId: nextUserId - 1}));
-    } else if (userData.role.toUpperCase() === 'PUPIL') {
-      dispatch(addPupil({...userData, userId: nextUserId - 1}));
-    } else if (userData.role.toUpperCase() === 'ADMIN') {
-      dispatch(addAdmin({...userData, userId: nextUserId - 1}));
+    if (userData.role.toUpperCase() === "TEACHER") {
+      dispatch(addTeacher({...userData, userId: nextUserId - 1}))
+    } else if (userData.role.toUpperCase() === "PUPIL") {
+      dispatch(addPupil({...userData, userId: nextUserId - 1}))
+    } else if (userData.role.toUpperCase() === "ADMIN") {
+      dispatch(addAdmin({...userData, userId: nextUserId - 1}))
     }
-};
+}
   
-export default authSlice.reducer;
+export default authSlice.reducer

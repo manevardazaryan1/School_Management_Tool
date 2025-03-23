@@ -1,21 +1,26 @@
-// src/components/UpdateSubjectDialog.js
-import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
+//  * UpdateSubjectDialog
+//  *
+//  * This component renders a dialog for updating a subject's name.
+//  * It uses Material-UI Dialog and TextField components to display and handle user input.
+//  *
+
+import React, { useState, useEffect } from "react"
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material"
 
 function UpdateSubjectDialog({ open, onClose, subject, onUpdate }) {
-    const [subjectName, setSubjectName] = useState(subject ? subject.name : '');
+    const [subjectName, setSubjectName] = useState(subject ? subject.name : "")
 
     useEffect(() => {
         if (subject) {
-            setSubjectName(subject.name);
+            setSubjectName(subject.name)
         }
-    }, [subject]);
+    }, [subject])
 
     const handleUpdate = () => {
-        onUpdate(subjectName);
-    };
+        onUpdate(subjectName)
+    }
 
-    if (!subject) return null;
+    if (!subject) return null
 
     return (
         <Dialog open={open} onClose={onClose}>
@@ -35,7 +40,7 @@ function UpdateSubjectDialog({ open, onClose, subject, onUpdate }) {
                 </Button>
             </DialogActions>
         </Dialog>
-    );
+    )
 }
 
-export default UpdateSubjectDialog;
+export default UpdateSubjectDialog

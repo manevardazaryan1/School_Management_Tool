@@ -1,7 +1,10 @@
-//src/components/pupil/PupilListItem.js
+//  * PupilListItem
+//  *
+//  * This component renders a list item for a pupil, displaying their information such as name, advanced subject,
+//  * preference, and grades. It also provides buttons for updating and deleting the pupil.
+//  *
 
-import React from 'react';
-import { ListItem, Box, Typography, Button } from '@mui/material';
+import { ListItem, Box, Typography, Button } from "@mui/material"
 
 function PupilListItem({ pupil, handleOpenModal, handleDeletePupil, subjects }) {
     return (
@@ -25,7 +28,7 @@ function PupilListItem({ pupil, handleOpenModal, handleDeletePupil, subjects }) 
                 <Button onClick={() => handleDeletePupil(pupil.id)} size="small" color="secondary">Delete</Button>
             </Box>
         </ListItem>
-    );
+    )
 }
 
-export default PupilListItem;
+export default PupilListItem
