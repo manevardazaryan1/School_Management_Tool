@@ -46,14 +46,14 @@ function UpdatePupilModal({
                                 style={{marginTop: "10px"}}
                             />
                         </Grid>
-                        {Object.entries(selectedPupil.grades).map(([subjectName]) => (
-                            <Grid item xs={12} sm={6} key={subjectName}>
+                        {subjects.map((subject) => (
+                            <Grid item xs={12} sm={6} key={subject.id}>
                                 <TextField
-                                    label={`${subjectName} Grade`}
+                                    label={`${subject.name} Grade`}
                                     type="number"
                                     inputProps={{ min: 0, max: 100 }}
-                                    value={updatedGrades[subjectName] || ''}
-                                    onChange={(e) => handleGradeChange(subjectName, e.target.value)}
+                                    value={updatedGrades[subject.name] || ''}
+                                    onChange={(e) => handleGradeChange(subject.name, e.target.value)}
                                     fullWidth
                                 />
                             </Grid>

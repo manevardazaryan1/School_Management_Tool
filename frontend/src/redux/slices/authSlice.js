@@ -75,7 +75,7 @@ export const authSlice = createSlice({
         return;
       }
       const newUser = {
-        id: nextUserId++,
+        id: ++nextUserId,
         name,
         email,
         password,
@@ -122,11 +122,11 @@ export const registerAndDispatch = (userData) => (dispatch) => {
     if (userExists) return
     
     if (userData.role.toUpperCase() === "TEACHER") {
-      dispatch(addTeacher({...userData, userId: nextUserId - 1}))
+      dispatch(addTeacher({...userData, userId: nextUserId}))
     } else if (userData.role.toUpperCase() === "PUPIL") {
-      dispatch(addPupil({...userData, userId: nextUserId - 1}))
+      dispatch(addPupil({...userData, userId: nextUserId}))
     } else if (userData.role.toUpperCase() === "ADMIN") {
-      dispatch(addAdmin({...userData, userId: nextUserId - 1}))
+      dispatch(addAdmin({...userData, userId: nextUserId}))
     }
 }
   

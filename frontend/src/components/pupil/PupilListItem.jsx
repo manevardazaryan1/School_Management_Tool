@@ -11,13 +11,13 @@ function PupilListItem({ pupil, handleOpenModal, handleDeletePupil, subjects }) 
         <ListItem className="list-item" key={pupil.id}>
             <Box>
                 <Typography variant="h5" component="h5">
-                    {pupil.name}
+                    {pupil.name.toUpperCase()}
                 </Typography>
                 <Typography variant="h5" component="h5">
-                    {`Advanced Subject: ${pupil.advancedSubject}`}
+                    {`Advanced Subject: ${pupil?.advancedSubject?.name ?? ""}`}
                 </Typography>
                 <Typography variant="h5" component="h5">
-                    {`Preference: ${pupil.preference}`}
+                    {`Preference: ${pupil?.preference?.name ?? ""}`}
                 </Typography>
                 <Typography variant="body1" paragraph>
                     {subjects.map((subject) => ` ${subject.name} - ${pupil.grades[subject.name] || 0} `)}

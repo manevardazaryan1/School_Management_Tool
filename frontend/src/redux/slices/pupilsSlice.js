@@ -22,8 +22,8 @@ const initialState = {
         Science: 92,
         History: 78,
       },
-      preference: "History",
-      advancedSubject: "History",
+      preference: {id: 3, name: "History"},
+      advancedSubject: {id: 3, name: "History"},
     },
 
     {
@@ -35,8 +35,8 @@ const initialState = {
         Science: 86,
         History: 98,
       },
-      preference: "Mathematics",
-      advancedSubject: "Mathematics",
+      preference: {id: 1, name: "Mathematics"},
+      advancedSubject: {id: 1, name: "Mathematics"},
     },
   ],
 }
@@ -46,8 +46,17 @@ export const pupilsSlice = createSlice({
   initialState,
   reducers: {
     addPupil: (state, action) => {
-      const { name, userId } = action.payload
-      state.pupils.push({ id: nextPupilId++, name, userId, grades: {}, preference: "", advancedSubject: "" })
+      const { name, userId, subjects } = action.payload
+      console.log(subjects)
+      const grades = {}
+      subjects.forEach((subject) => {
+        grades[subject.name] = 0
+      })
+
+      state.pupils.push({ id: nextPupilId++, 
+        name, userId,       
+        grades: grades,
+        preference: {}, advancedSubject: {} })
     },
     deletePupil: (state, action) => {
       const { id } = action.payload
@@ -62,14 +71,48 @@ export const pupilsSlice = createSlice({
               ...state.pupils[pupilIndex],
               name,
               grades,
-              preference,
-              advancedSubject: calculateAdvancedSubject(grades, preference, subjectsList)
+              preference: subjectsList.find((subject) => subject.name === preference) || {},
+              advancedSubject: calculateAdvancedSubject(grades, preference, subjectsList) || {}
           }
       }
-  },
+    },
+    updatePupilBySubjectDelete: (state, action) => {
+      const subjectName = action.payload
+      state.pupils.forEach((pupil) => {
+        if (pupil.advancedSubject.name === subjectName) {
+          pupil.advancedSubject = {}
+        }
+
+        if (pupil.preference.name === subjectName) {
+          pupil.preference = {}
+        }
+
+        delete pupil.grades[subjectName]
+      })
+    },
+    updatePupilBySubjectUpdate: (state, action) => {
+      const { subjectId, prevName, newName } = action.payload
+      
+      state.pupils.forEach((pupil) => {
+        if (pupil.preference.id === subjectId) {
+          pupil.preference.name = newName
+        }
+
+        if (pupil.advancedSubject.id === subjectId) {
+          pupil.advancedSubject.name = newName
+        }
+
+        pupil.grades[newName] = pupil.grades[prevName]
+        delete pupil.grades[prevName]
+      })
+    }
   },
 })
 
-export const { addPupil, updatePupil, deletePupil } = pupilsSlice.actions
+export const { addPupil, 
+  updatePupil,
+  deletePupil, 
+  updatePupilBySubjectDelete, 
+  updatePupilBySubjectUpdate } = pupilsSlice.actions
 
 export default pupilsSlice.reducer

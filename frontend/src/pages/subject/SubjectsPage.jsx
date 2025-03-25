@@ -7,6 +7,8 @@
 import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { addSubject, updateSubject, deleteSubject } from "../../redux/slices/subjectsSlice"
+import { updatePupilBySubjectDelete, updatePupilBySubjectUpdate } from "../../redux/slices/pupilsSlice" 
+import { updateTeacherBySubjectDelete } from "../../redux/slices/teachersSlice"
 import { TextField, Button, Box, Typography, Modal } from "@mui/material"
 import UpdateSubjectDialog from "../../components/subject/UpdateSubjectDialog"
 import DeleteConfirmationDialog from "../../components/subject/DeleteConfirmationDialog"
@@ -55,6 +57,7 @@ function SubjectsPage() {
     const handleUpdateSubject = (updatedName) => {
         if (updatedName.trim()) {
             dispatch(updateSubject({ id: subjectToUpdate.id, name: updatedName }))
+            dispatch(updatePupilBySubjectUpdate({subjectId: subjectToUpdate.id, prevName: subjectToUpdate.name, newName: updatedName}))
             setUpdateDialogOpen(false)
         }
     };
@@ -66,6 +69,8 @@ function SubjectsPage() {
 
     const handleDeleteSubjectConfirm = () => {
         dispatch(deleteSubject({ id: subjectToDelete.id }))
+        dispatch(updatePupilBySubjectDelete(subjectToDelete.name))
+        dispatch(updateTeacherBySubjectDelete(subjectToDelete.id))
         setDeleteDialogOpen(false)
     }
 

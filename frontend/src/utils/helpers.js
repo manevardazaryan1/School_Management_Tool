@@ -13,7 +13,8 @@ export function calculateAdvancedSubject(grades, preference, subjectsList) {
   const preferenceGrade = grades[preference]
 
   if (preferenceGrade >= 70) {
-      return preference
+    
+      return subjectsList.find((subject) => subject.name === preference)
   } else {
       let highestGrade = -1
       let highestGradeSubject = null
@@ -26,7 +27,7 @@ export function calculateAdvancedSubject(grades, preference, subjectsList) {
               }
           }
       }
-
-      return highestGradeSubject
+      
+      return subjectsList.find((subject) => subject.name === highestGradeSubject)
   }
 }

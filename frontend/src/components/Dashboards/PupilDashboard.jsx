@@ -10,7 +10,6 @@ import { Typography, Box, List, ListItem, ListItemText } from "@mui/material"
 function PupilDashboard() {
     const currentUserId = useSelector((state) => state.auth.currentUser.id);
     const pupils = useSelector((state) => state.pupils.pupils);
-
     const pupil = pupils.find((p) => p.userId === currentUserId);
 
     if (!currentUserId) {

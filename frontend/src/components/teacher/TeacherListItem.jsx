@@ -11,9 +11,9 @@ function TeacherListItem({ teacher, subjects, handleOpenUpdateDialog, handleOpen
         <ListItem key={teacher.id} className="list-item">
             <ListItemText
                 primary={teacher.name}
-                secondary={`Subjects: ${teacher.subjectIds
+                secondary={`Subjects: ${teacher.subjectIds.length ? teacher.subjectIds
                     .map((id) => subjects.find((subject) => subject.id === id)?.name)
-                    .join(', ') || "None"}`}
+                    .join(', '): ""}`}
                 className="subjects-list"
             />
             <Box className="buttons">

@@ -42,8 +42,14 @@ export const teachersSlice = createSlice({
             state.teachers = state.teachers.filter((teacher) => teacher.id !== id)
             return state
         },
+        updateTeacherBySubjectDelete: (state, action) => {
+            const subjectId = action.payload
+            state.teachers.forEach((teacher) => {
+                teacher.subjectIds = teacher.subjectIds.filter((id) => id !== subjectId)
+            })
+        }
     },
 })
 
-export const { addTeacher, updateTeacher, deleteTeacher } = teachersSlice.actions
+export const { addTeacher, updateTeacher, deleteTeacher, updateTeacherBySubjectDelete } = teachersSlice.actions
 export default teachersSlice.reducer

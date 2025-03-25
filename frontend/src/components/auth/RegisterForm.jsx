@@ -20,6 +20,7 @@ function RegistrationForm() {
   const navigate = useNavigate()
   const registerError = useSelector((state) => state.auth.registerError)
   const currentUser = useSelector((state) => state.auth.currentUser)
+  const subjects = useSelector((state) => state.subjects.subjects)
 
   useEffect(() => {
     if (currentUser) {
@@ -28,7 +29,7 @@ function RegistrationForm() {
   }, [currentUser, navigate]);
 
   const handleSubmit = (values, { setSubmitting }) => {
-    dispatch(registerAndDispatch(values))
+    dispatch(registerAndDispatch({...values, subjects}))
     setSubmitting(false)
   }
 

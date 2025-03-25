@@ -33,16 +33,16 @@ function PupilsPage() {
     const [filterGradeValue, setFilterGradeValue] = useState("")
     const [filterPreference, setFilterPreference] = useState("")
     const [page, setPage] = useState(1)
-    const pupilsPerPage = 3
     const [openFilterModal, setOpenFilterModal] = useState(false)
+    const pupilsPerPage = 3
 
     const filteredPupils = pupils.filter(pupil => {
-        const nameMatch = pupil.name.toLowerCase().includes(filterName.toLowerCase());
+        const nameMatch = pupil.name.toLowerCase().includes(filterName.toLowerCase())
         const advancedSubjectMatch = filterAdvancedSubject
-            ? pupil.advancedSubject.toLowerCase().includes(filterAdvancedSubject.toLowerCase())
+            ? pupil.advancedSubject.name.toLowerCase().includes(filterAdvancedSubject.toLowerCase())
             : true
         const preferenceMatch = filterPreference
-            ? pupil.preference.toLowerCase().includes(filterPreference.toLowerCase())
+            ? pupil.preference.name.toLowerCase().includes(filterPreference.toLowerCase())
             : true
         const gradeMatch = filterGradeSubject && filterGradeValue
             ? pupil.grades[subjects.find(s => s.id === parseInt(filterGradeSubject))?.name] === parseInt(filterGradeValue)
@@ -78,7 +78,7 @@ function PupilsPage() {
         setSelectedPupil(pupil)
         setUpdatedName(pupil.name)
         setUpdatedGrades({ ...pupil.grades })
-        setUpdatedPreference(pupil.preference)
+        setUpdatedPreference(pupil.preference.name)
         setOpenModal(true)
     }
 

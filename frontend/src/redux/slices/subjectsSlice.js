@@ -24,28 +24,23 @@ export const subjectsSlice = createSlice({
             const { name, teacherIds } = action.payload
             const newSubject = { id: nextSubjectId++, name, teacherIds: teacherIds || [] }
             state.subjects.push(newSubject)
-            return state
         },
         updateSubject: (state, action) => {
-            const { id, name, teacherIds } = action.payload
+            const { id, name } = action.payload
             const subject = state.subjects.find((subject) => subject.id === id)
             if (subject) {
                 subject.name = name
-                subject.teacherIds = teacherIds
             }
-            return state
         },
         deleteSubject: (state, action) => {
             const { id } = action.payload
             state.subjects = state.subjects.filter((subject) => subject.id !== id)
-            return state
         },
         removeTeacherFromSubjects: (state, action) => {
             const { teacherId } = action.payload
             state.subjects.forEach((subject) => {
                 subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId)
             });
-            return state
         },
         updateSubjectTeacherByTeacher: (state, action) => {
             const { teacherId, subjectIds } = action.payload;
@@ -58,7 +53,6 @@ export const subjectsSlice = createSlice({
                     subject.teacherIds = subject.teacherIds.filter(id => id !== teacherId)
                 }
             });
-            return state
         },
         updateSubjectTeacherByTeacherAdd: (state, action) => {
             const { teacherId, subjectIds } = action.payload;
@@ -73,7 +67,6 @@ export const subjectsSlice = createSlice({
                     }
                 }
             });
-            return state
         },
         addTeacherToSubject: (state, action) => {
             const { subjectId, teacherId } = action.payload
@@ -89,7 +82,6 @@ export const subjectsSlice = createSlice({
             if (subject) {
                 subject.teacherIds = subject.teacherIds.filter((id) => id !== teacherId)
             }
-            return state
         },
     },
 });
