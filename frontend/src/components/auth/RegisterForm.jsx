@@ -48,13 +48,12 @@ function RegistrationForm() {
             <Field as={TextField} name="email" label="Email" margin="normal" fullWidth />
             <ErrorMessage name="email" component="div" style={{ color: "red" }} />
             <Field as={TextField} name="password" label="Password" type="password" margin="normal" fullWidth />
-            <ErrorMessage name="password" component="div" style={{ color: "red" }} />
+            <ErrorMessage name="password" component="div" style={{ color: "red" }} autoComplete="current-password" />
             <FormControl fullWidth margin="normal">
               <InputLabel id="role-select-label">Role</InputLabel>
               <Field as={Select} labelId="role-select-label" id="role-select" name="role" label="Role">
                 <MenuItem value="PUPIL">Pupil</MenuItem>
                 <MenuItem value="TEACHER">Teacher</MenuItem>
-                <MenuItem value="ADMIN">Admin</MenuItem>
               </Field>
               <ErrorMessage name="role" component="div" style={{ color: "red" }} />
             </FormControl>

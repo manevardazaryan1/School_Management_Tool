@@ -117,7 +117,10 @@ function TeachersPage() {
     return (
         <Box className="teachers-page-container">
             <Typography variant="h2" component="h2" className="page-title">Teachers</Typography>
-            <Button onClick={handleOpenFilterModal} style={{margin: "auto", display: "block"}}>Open Filters</Button>
+            <Button onClick={handleOpenFilterModal} style={{margin: "auto", 
+                display: "block", 
+                marginRight: "20px", }}>
+                Open Filters</Button>
             <Modal open={openFilterModal} onClose={handleCloseFilterModal} className="filter-modal">
                 <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
                     <TeacherFilters
@@ -136,11 +139,13 @@ function TeachersPage() {
                 handleOpenUpdateDialog={handleOpenUpdateDialog}
                 handleOpenDeleteConfirm={handleOpenDeleteConfirm}
             />
-            <TeacherPagination
-                totalPages={totalPages}
-                page={page}
-                handlePageChange={handlePageChange}
-            />
+            {   totalPages > 1 && 
+                <TeacherPagination
+                    totalPages={totalPages}
+                    page={page}
+                    handlePageChange={handlePageChange}
+                />
+            }
             <UpdateTeacherDialog
                 open={updateDialogOpen}
                 onClose={() => setUpdateDialogOpen(false)}

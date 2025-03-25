@@ -22,8 +22,10 @@ export const subjectsSlice = createSlice({
     reducers: {
         addSubject: (state, action) => {
             const { name, teacherIds } = action.payload
-            const newSubject = { id: nextSubjectId++, name, teacherIds: teacherIds || [] }
-            state.subjects.push(newSubject)
+            if (!state.subjects.find((subject) => subject.name === name)) {
+                const newSubject = { id: nextSubjectId++, name, teacherIds: teacherIds || [] }
+                state.subjects = [newSubject, ...state.subjects]
+            }
         },
         updateSubject: (state, action) => {
             const { id, name } = action.payload

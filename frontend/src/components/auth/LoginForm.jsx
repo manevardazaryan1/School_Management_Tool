@@ -44,7 +44,7 @@ function LoginForm() {
             <Field as={TextField} name="email" label="Email" margin="normal" fullWidth />
             <ErrorMessage name="email" component="div" style={{ color: "red" }} />
 
-            <Field as={TextField} name="password" label="Password" type="password" margin="normal" fullWidth />
+            <Field as={TextField} name="password" label="Password" type="password" margin="normal" autoComplete="current-password" fullWidth />
             <ErrorMessage name="password" component="div" style={{ color: "red" }} />
 
             <Box mt={2} display="flex" justifyContent="center">

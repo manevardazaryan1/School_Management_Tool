@@ -12,8 +12,8 @@ let nextAdminId = 1
 const initialState = {
   admins: [
       { id: nextAdminId++, 
-        userId: 1, name: "AdminName", 
-        email: "admin@example.com", 
+        userId: 1, name: "Mane", 
+        email: "mane@gmail.com", 
         password: "Admin_12345", 
         role: "admin" },
     ],

@@ -36,7 +36,7 @@ function PupilFilters({
                 value={filterGradeSubject} label="Filter by Grade Subject" 
                 onChange={(e) => setFilterGradeSubject(e.target.value)} sx={{ height: 40 }}
                 >
-                    <MenuItem value=""><em>None</em></MenuItem>
+                    <MenuItem value=""><em>Subject</em></MenuItem>
                     {subjects.map((subject) => (
                         <MenuItem key={subject.id} value={subject.id}>{subject.name}</MenuItem>
                     ))}

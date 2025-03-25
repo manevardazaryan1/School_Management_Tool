@@ -5,7 +5,16 @@
 //  *
 
 import { useSelector } from "react-redux"
-import { Typography, Box, List, ListItem, ListItemText } from "@mui/material"
+import { Typography,
+     Box, 
+     Table,
+     TableBody,
+     TableCell,
+     TableContainer,
+     TableHead,
+     TableRow,
+     Paper
+    } from "@mui/material"
 
 function PupilDashboard() {
     const currentUserId = useSelector((state) => state.auth.currentUser.id);
@@ -13,7 +22,7 @@ function PupilDashboard() {
     const pupil = pupils.find((p) => p.userId === currentUserId);
 
     if (!currentUserId) {
-        return <p>Please log in.</p>;
+        return <Typography variant="h3" component="h3" >Please log in.</Typography>
     }
 
     if (!pupil) {
@@ -26,27 +35,56 @@ function PupilDashboard() {
             <Typography variant="h4" component="h4" gutterBottom className="dashboardTitleInfo">
                 Pupil Information
             </Typography>
-            <Typography variant="h5" component="h3" gutterBottom className="dashboardTitleName">
-                {`Name: ${pupil.name.toUpperCase()}`}
-            </Typography>
-            <Typography variant="h5" component="h5" gutterBottom className="dashboardTitleInfo">
-                {`Preference: ${pupil.preference || "No preferred subject yet"}`}
-            </Typography>
-            <Typography variant="h5" component="h5" gutterBottom className="dashboardTitleInfo">
-                {`Advanced Subject: ${pupil.advancedSubject || "No calculated advanced subject"}`}
-            </Typography>
-            <Box>
-                <Typography variant="h5" component="h5" gutterBottom className="dashboardTitleInfo">
-                   Grades:
-                </Typography>
-                <List>
-                    {Object.entries(pupil.grades).map(([subject, grade]) => (
-                        <ListItem key={subject}>
-                            <ListItemText>{subject}: {grade}</ListItemText>
-                        </ListItem>
-                    ))} 
-                </List>
-            </Box>
+            <TableContainer component={Paper} style={{marginTop: "20px"}}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell align="center">Name</TableCell>
+                        <TableCell align="center">Preference</TableCell>
+                        <TableCell align="center">Advanced Subject</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                            <TableCell component="th" scope="row" align="center">
+                                {pupil.name[0].toUpperCase() + pupil.name.slice(1).toLowerCase()}
+                            </TableCell>
+                            <TableCell align="center">
+                                {pupil.preference.name || "No preferred subject yet"}
+                            </TableCell>
+                            <TableCell align="center">
+                                {pupil.advancedSubject.name || "No calculated advanced subject"}
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TableContainer component={Paper} style={{marginTop: "20px"}}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            {Object.entries(pupil.grades).map(([subject]) => (
+                                <TableCell key={subject} align="center">
+                                    {subject}
+                                </TableCell>
+                            ))} 
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        >
+                        {Object.entries(pupil.grades).map(([subject, grade]) => (
+                            <TableCell key={subject} align="center">
+                                {grade}
+                            </TableCell>
+                        ))} 
+                        </TableRow>
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </Box>
     )
 }

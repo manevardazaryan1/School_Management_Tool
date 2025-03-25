@@ -32,15 +32,14 @@
 
 .add-subject-form {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    width: 50%;
     margin: auto;
     margin-bottom: 20px;
 }
 
 .add-subject-form .add-subject-button {
-    margin-left: 20px;
-    width: 200px;
+    margin-top: 20px;
 }
 
 .add-subject-form .add-subject-input {
@@ -48,14 +47,22 @@
     width: 100%;
 }
 
+.subjectsPageButtons {
+    display: flex;
+    justify-content: flex-end !important;
+    align-items: center;
+    margin: 20px 20px 0 0;
+}
+
+.subjectsPageButtons button {
+    margin: 0 0 0 20px !important;
+}
+
 @media only screen and (max-width: 1200px) {
     .list-item .buttons {
         align-self: flex-end;
     }
 
-    .add-subject-form {
-        width: 90%;
-    }
 }
 
 @media only screen and (max-width: 450px) {

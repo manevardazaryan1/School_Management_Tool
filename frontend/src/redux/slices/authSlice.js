@@ -15,7 +15,7 @@ let nextUserId = 0
 
 const initialState = {
   users: [
-    { id: nextUserId++, name: "admin", email: "admin@example.com", password: "Admin_12345", role: "admin" },
+    { id: nextUserId++, name: "Mane", email: "mane@gmail.com", password: "Admin_12345", role: "admin" },
     { id: nextUserId++, name: "Mr. Smith", email: "smith@example.com", password: "Smith_12345", role: "teacher" },
     { id: nextUserId++, name: "Ms. Liam", email: "liam@example.com", password: "Liam_12345", role: "teacher" },
     { id: nextUserId++, name: "Mr. James", email: "james@example.com", password: "James_12345", role: "teacher" },
